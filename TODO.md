@@ -38,7 +38,7 @@ Mostly made by GitHub Copilot and fixed by [me](https://github.com/PotatoMindPop
         * [+] JavaScript
         * [+] Python
         * [+] Ruby
-        * [-] Rust
+        * [/] Rust
         * [-] Swift
         * [-] TypeScript
         * [+] Go
