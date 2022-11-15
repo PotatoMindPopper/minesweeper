@@ -1,6 +1,10 @@
 # minesweeper
 
+A ONE LINER
+
 ## Description
+
+Description of the project
 
 ## Installation
 
@@ -8,7 +12,11 @@
 
 ## Contributing
 
+See [CONTRIBUTING](CONTRIBUTING.md).
+
 ## License
+
+See [LICENSE](LICENSE.md).
 
 ## Author
 
