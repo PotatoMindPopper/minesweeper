@@ -1,6 +1,7 @@
 # TODO
 
 Mostly made by GitHub Copilot and fixed by [me](https://github.com/PotatoMindPopper).
+[https://github.com/joelparkerhenderson/github-special-files-and-paths](https://github.com/joelparkerhenderson/github-special-files-and-paths)
 
 ## Init level
 
