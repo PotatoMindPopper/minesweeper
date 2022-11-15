@@ -12,8 +12,8 @@ Mostly made by GitHub Copilot and fixed by [me](https://github.com/PotatoMindPop
     - [/] Add a .gitignore
     - [-] Add a .editorconfig
     - [-] Add a .gitattributes
-    - [-] Add a .github folder
-    - [-] Add a .github/ISSUE_TEMPLATE folder
+    - [/] Add a .github folder
+    - [/] Add a .github/ISSUE_TEMPLATE folder
     - [-] Add a .github/ISSUE_TEMPLATE/bug_report.md
     - [-] Add a .github/ISSUE_TEMPLATE/feature_request.md
     - [-] Add a .github/PULL_REQUEST_TEMPLATE.md
@@ -22,7 +22,13 @@ Mostly made by GitHub Copilot and fixed by [me](https://github.com/PotatoMindPop
     - [-] Add a .github/SECURITY.md
     - [-] Add a .github/SUPPORT.md
     - [-] Add a .github/dependabot.yml
-    - [-] Add a .github/workflows folder
+    - [/] Add a .github/workflows folder
+    - [-] Add a .github/workflows/main.yml
+    - [-] Add a .github/workflows/dependabot.yml
+    - [-] Add a .github/workflows/linter.yml
+    - [-] Add a .github/workflows/release.yml
+    - [-] Add a .github/workflows/test.yml
+    - [-] Add a .github/workflows/website.yml
 
     - [/] Overthink the following programming languages:
         * [+] C
