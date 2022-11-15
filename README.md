@@ -10,6 +10,8 @@ Description of the project
 
 ## Usage
 
+Please read [USAGE.md](USAGE.md) before starting a program.
+
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md).
