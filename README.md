@@ -31,3 +31,5 @@ See [LICENSE](LICENSE.md).
 See [TODO](TODO.md).
 
 ## Changelog
+
+See [CHANGELOG](CHANGELOG.md).
