@@ -1,0 +1,9 @@
+## CITATION.cff
+
+  * File: `CITATION.cff`
+
+  * Help: <https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files>
+
+This file explains how you would like people to cite your work. The citation file format is plain text with human-readable and machine-readable citation information.
+
+When you add this file to the default branch root directory of your repository, then GitHub automatically links to it from the repository landing page.

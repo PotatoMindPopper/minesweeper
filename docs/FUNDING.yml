@@ -1,0 +1,7 @@
+## FUNDING.yml
+
+  * File: `.github/FUNDING.yml`
+
+  * Help: <https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/displaying-a-sponsor-button-in-your-repository>
+
+You can configure your sponsor button by adding a  file in your repository on the default branch. You can configure the button to include sponsored developers in GitHub Sponsors, external funding platforms, or a custom funding URL.
