@@ -73,15 +73,13 @@ void tekst(int zetten, int gemarkeerd) {
 // Introductie en eigenschappen bepalen voor het spel
 void tekstBeginSpel() {
   cout << "Het spel zal nu beginnen." << endl;
-  cout << "U mag nu zelf de grootte van het bord kiezen - maximaal "
-          "100 bij 100."
+  cout << "U mag nu zelf de grootte van het bord kiezen - maximaal 100 bij 100."
        << endl;
-  cout << "Daarnaast mag u ook het percentage bepalen voor het "
-          "aantal kopjes koffie, die verstopt zullen worden - "
-          "maximaal 100%."
+  cout << "Daarnaast mag u ook het percentage bepalen voor het aantal kopjes "
+          "koffie, die verstopt zullen worden - maximaal 100%."
        << endl;
-  cout << "Ook kunt u kiezen of u zelf wilt spelen of dat de "
-          "computer moet spelen."
+  cout << "Ook kunt u kiezen of u zelf wilt spelen of dat de computer moet "
+          "spelen."
        << endl;
   cout << "Begin nu met het invullen van de waardes." << endl << endl;
 } // tekstBeginSpel
@@ -113,8 +111,7 @@ void koffiebord::menu() {
   while (((compmens != 'C' && compmens != 'c') &&
           (compmens != 'M' && compmens != 'm') &&
           (compmens != 'E' && compmens != 'e'))) {
-    cout << "Dit was niet een goed antwoord, probeer het hier nog "
-            "een keer: ";
+    cout << "Dit was niet een goed antwoord, probeer het hier nog een keer: ";
     compmens = leesOptie();
   }
   switch (compmens) {
@@ -127,9 +124,7 @@ void koffiebord::menu() {
     case 'E':
     case 'e':
       cout << endl
-           << "Wat jammer nou, toch wensen wij u een "
-              "fijne dag!"
-           << endl;
+           << "Wat jammer nou, toch wensen wij u een fijne dag!" << endl;
       break;
     // Einde
     case 'M':
@@ -164,14 +159,13 @@ void koffiebord::menu() {
           case 'T':
           case 't':
             cout << endl
-                 << "Deze optie is nog niet beschikbaar in "
-                    "deze beta versie van het spel."
+                 << "Deze optie is nog niet beschikbaar in deze beta versie "
+                    "van het spel."
                  << endl;
-            cout << "De releasedatum van het volledige spel staat "
-                    "halverwege 2022."
+            cout << "De releasedatum van het volledige spel staat halverwege "
+                    "2022."
                  << endl;
-            cout << "Om deze reden zal u weer terug gaan naar het "
-                    "menu."
+            cout << "Om deze reden zal u weer terug gaan naar het menu."
                  << endl;
             break;
           // Terug
@@ -182,9 +176,7 @@ void koffiebord::menu() {
           // Stoppen
           default:
             cout << endl
-                 << "Geen geldige optie gekozen, probeer "
-                    "opnieuw."
-                 << endl;
+                 << "Geen geldige optie gekozen, probeer opnieuw." << endl;
             // standaard
         }
         alklaar(ingang, h, b);
@@ -201,76 +193,66 @@ void koffiebord::menu() {
 void infoblokje() {
   char typToCont = '$';
   cout << "Beste gebruiker, welkom bij Minesweeper!" << endl;
-  cout << "U zal zo een potje Mijnenveger, in de vorm van "
-          "koffiesweeper, gaan spelen."
+  cout << "U zal zo een potje Mijnenveger, in de vorm van koffiesweeper, gaan "
+          "spelen."
        << endl;
   cout << "Dit kan tegen uzelf of tegen een computer." << endl;
-  cout << "Voordat we het spel starten, hebben we eerst wat "
-          "informatie voor u."
+  cout << "Voordat we het spel starten, hebben we eerst wat informatie voor u."
        << endl;
-  cout << "Zo heeft de game een aantal acties nodig. Deze doelen "
-          "staan hieronder: "
+  cout << "Zo heeft de game een aantal acties nodig. Deze doelen staan "
+          "hieronder: "
        << endl;
-  cout << "-   Zoek en open elk vakje dat geen kopje koffie "
-          "bevat."
-       << endl;
-  cout << "      Een geopend vakje, dat geen koffie bevat zal een "
-          "nummer bevatten."
+  cout << "-   Zoek en open elk vakje dat geen kopje koffie bevat." << endl;
+  cout
+      << "      Een geopend vakje, dat geen koffie bevat zal een nummer "
+         "bevatten."
+      << endl
+      << "      Dit nummer geeft aan hoeveel kopjes koffie om dit vakje zitten."
+      << endl
+      << "      Hierbij gaat het om vakjes die naast elkaar zitten of schuin "
+         "van elkaar staan."
+      << endl;
+  cout
+      << "-   Zoek en markeer de plekjes waar u denkt dat een kopje koffie zit."
+      << endl;
+  cout << "Winnen doet u door alle vakjes te openen zonder een kopje koffie te "
+          "open. "
        << endl
-       << "      Dit nummer geeft "
-          "aan hoeveel kopjes koffie om dit vakje zitten."
-       << endl
-       << "      Hierbij gaat het om vakjes die "
-          "naast elkaar zitten of schuin van elkaar staan."
+       << "Verliezen doet u door een kopje koffie te openen." << endl
        << endl;
-  cout << "-   Zoek en markeer de plekjes waar u denkt dat een "
-          "kopje koffie zit."
-       << endl;
-  cout << "Winnen doet u door alle vakjes te openen zonder een "
-          "kopje koffie te open. "
-       << endl
-       << "Verliezen doet u "
-          "door een kopje koffie te openen."
-       << endl
-       << endl;
-  cout << "Nu de game een beetje is uitgelegd, komen er nog een "
-          "aantal technische/persoonlijke informatiestukken aan bod."
+  cout << "Nu de game een beetje is uitgelegd, komen er nog een aantal "
+          "technische/persoonlijke informatiestukken aan bod."
        << endl;
   cout << "Zo zijn de auteurs van dit programma: PotatoMindPopper" << endl;
   cout << "En is dit programma gemaakt in Code::Blocks 20.03." << endl;
-  cout << "Daarnaast is de meest recente update uitgevoerd op "
-          "17-11-2022."
+  cout << "Daarnaast is de meest recente update uitgevoerd op 17-11-2022."
        << endl
        << endl;
   cout << "Extra informatie: " << endl;
-  cout << "- Wanneer er om een optie gevraagd wordt, druk dan na "
-          "het intypen van de optie op ENTER, "
+  cout << "- Wanneer er om een optie gevraagd wordt, druk dan na het intypen "
+          "van de optie op ENTER, "
        << endl
        << "  zodat het programma door zal gaan." << endl;
-  cout << "- Een gemarkeerd vakje krijgt de letter 'K' op het "
-          "bord."
-       << endl;
+  cout << "- Een gemarkeerd vakje krijgt de letter 'K' op het bord." << endl;
   cout << "- Aan de buitenkant van het bord staan de nummers van de "
           "desbetreffende kolom of rij."
        << endl;
   cout << "- Momenteel speelt u een beta versie van dit spel." << endl
-       << "  Dit kan ervoor zorgen dat sommige opties niet geheel "
-          "naar behoren werken, onze excuzes voor het ongemak."
+       << "  Dit kan ervoor zorgen dat sommige opties niet geheel naar behoren "
+          "werken, onze excuzes voor het ongemak."
        << endl
        << endl;
   cout << "Typ X hier om door te gaan: ";
   typToCont = leesOptie();
   if (typToCont == 'X' || typToCont == 'x') {
-    cout << "Dit is correct en u wordt doorgestuurd naar het "
-            "programma."
-         << endl
+    cout << "Dit is correct en u wordt doorgestuurd naar het programma." << endl
          << endl;
     for (int i = 0; i < 28; i++) {
       cout << endl;
     }
   } else {
-    cout << "Dit was niet het goede antwoord, maar u zult "
-            "doorgestuurd worden naar het programma."
+    cout << "Dit was niet het goede antwoord, maar u zult doorgestuurd worden "
+            "naar het programma."
          << endl
          << endl;
     for (int i = 0; i < 28; i++) {
