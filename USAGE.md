@@ -10,7 +10,8 @@
 [objective-c][objective-c],
 [python][python],
 [r][r],
-[ruby][ruby]
+[ruby][ruby],
+[rust][rust]
 
 [c]:/code/c/USAGE.md
 [c#]:/code/c#/USAGE.md
@@ -22,6 +23,7 @@
 [python]:/code/python/USAGE.md
 [r]:/code/r/USAGE.md
 [ruby]:/code/ruby/USAGE.md
+[rust]:/code/rust/USAGE.md
 
 ## TODO
 
