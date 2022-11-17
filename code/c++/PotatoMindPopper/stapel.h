@@ -39,9 +39,7 @@ Onze versie bevat koffiekopjes in plaats van mijnen en vandaar dat het
   spel ook koffiesweeper heet.
 */
 
-
-//Dit deel van het programma is buiten werking
-
+// Dit deel van het programma is buiten werking
 
 /*
 class StapelEntry{

@@ -39,24 +39,24 @@ Onze versie bevat koffiekopjes in plaats van mijnen en vandaar dat het
   spel ook koffiesweeper heet.
 */
 
-class bordvakje{
+class bordvakje {
   public:
-    //member-variabelen
+    // member-variabelen
     bool geopendzichtbaar = false;
     bool gemarkeerd = false;
     bool koffie;
     int aantal = 0;
-    bordvakje* buren[8];
-    bordvakje* vorige;
-    bordvakje* volgende;
+    bordvakje *buren[8];
+    bordvakje *vorige;
+    bordvakje *volgende;
     int info;
     int x = 0, y = 0;
     bordvakje();
 };
 
-class koffiebord{
+class koffiebord {
   private:
-    //member-variabelen
+    // member-variabelen
     int h, b;
     int perc;
     bool markeren = false;
@@ -68,38 +68,38 @@ class koffiebord{
     int spellen = 0;
     int aantalk = 0;
     int gemarkeerdKoffie = 0;
-    bordvakje* ingang;
-    bordvakje* uitgang;
+    bordvakje *ingang;
+    bordvakje *uitgang;
 
   public:
-    //Algemene functies
-    koffiebord(); //constructor
-    ~koffiebord();//destructor
+    // Algemene functies
+    koffiebord();  // constructor
+    ~koffiebord(); // destructor
     double leesGetal(int maxi);
     void voegvoor();
     void bouwbord();
     void leegbord();
     void menu();
-    bordvakje* nieten(bordvakje* p, bordvakje* q,int b, int t, int h);
-    bordvakje* maakrij(int b, bordvakje* p, bordvakje* ingang);
+    bordvakje *nieten(bordvakje *p, bordvakje *q, int b, int t, int h);
+    bordvakje *maakrij(int b, bordvakje *p, bordvakje *ingang);
 
-    //Functies voor de menselijke gebruiker
-    void drukaf(bordvakje* ingang, int h, int b);
-    void strooikoffie(bordvakje* p);
-    void buurkoffie(bordvakje* ingang, int h, int b);
-    void vakjekiezen(int b, int h, bordvakje* ingang);
-    void randomZet(int h, int b, bordvakje* ingang);
-    void openVakje(bordvakje*&e);
-    void alklaar(bordvakje* ingang, int h, int b);
+    // Functies voor de menselijke gebruiker
+    void drukaf(bordvakje *ingang, int h, int b);
+    void strooikoffie(bordvakje *p);
+    void buurkoffie(bordvakje *ingang, int h, int b);
+    void vakjekiezen(int b, int h, bordvakje *ingang);
+    void randomZet(int h, int b, bordvakje *ingang);
+    void openVakje(bordvakje *&e);
+    void alklaar(bordvakje *ingang, int h, int b);
 
-    //Functies voor de computer
+    // Functies voor de computer
     void compzet();
     void randomZetComp();
     void strooikoffieComp();
     void buurkoffieComp();
     void alklaarComp();
 
-    //Functie voor de stapel
-    //Dit deel van het programma is buiten werking
-    //void kopieerVan(koffiebord* oudBord);
+    // Functie voor de stapel
+    // Dit deel van het programma is buiten werking
+    // void kopieerVan(koffiebord* oudBord);
 };

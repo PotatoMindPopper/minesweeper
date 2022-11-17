@@ -39,22 +39,20 @@ Onze versie bevat koffiekopjes in plaats van mijnen en vandaar dat het
   spel ook koffiesweeper heet.
 */
 
+// Dit deel van het programma is buiten werking
 
-//Dit deel van het programma is buiten werking
-
-//Uitleg bij de functies is van een medestudent,
-  //vandaar dat er soms een vreemde woordkeus is gebruikt
-  //Deze uitleg staat standaard in comment modes;
-    //dit is ook de reden dat het programma warnings geeft over het
-    //gebruik van '/*' binnen commentaar
-
+// Uitleg bij de functies is van een medestudent,
+// vandaar dat er soms een vreemde woordkeus is gebruikt
+// Deze uitleg staat standaard in comment modes;
+// dit is ook de reden dat het programma warnings geeft over het
+// gebruik van '/*' binnen commentaar
 
 /*
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include "koffiebord.h"
 #include "stapel.h"
+#include "koffiebord.h"
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
 
 using namespace std;
 
@@ -70,27 +68,27 @@ Stapel::zetOpStapel(koffiebord* bordStapel){
 
 
 */
-  /*
-  Als dit wordt
-    geroepen dan maak ik in de functie een nieuw koffiebord (ook echt met
-    het woordje new) en dat koffiebord moet dezelfde hoogte en breedte
-    hebben als het bord dat als parameter wordt doorgegeven in de functie.
-  Jullie moeten denk ik ook bouwbord() roepen want de pointers van dat
-    bord moeten gemaakt worden.
+/*
+Als dit wordt
+  geroepen dan maak ik in de functie een nieuw koffiebord (ook echt met
+  het woordje new) en dat koffiebord moet dezelfde hoogte en breedte
+  hebben als het bord dat als parameter wordt doorgegeven in de functie.
+Jullie moeten denk ik ook bouwbord() roepen want de pointers van dat
+  bord moeten gemaakt worden.
 
-  Daarbij hebben we dus nu een heel nieuw
-    bord gemaakt, en stel ik noem dat nieuwBord in mijn functie dan moet ik
-    nu nieuwBord->kopieerVan(bord) doen om het bord dat aan de functie is
-    gegevn te kopieren naar het nieuw gemaakte bord.
-  Daarna maak ik een
-    nieuwe StapelEntry (je mag het ook anders noemen ofc, dit is ook weer
-    met het woord new).
+Daarbij hebben we dus nu een heel nieuw
+  bord gemaakt, en stel ik noem dat nieuwBord in mijn functie dan moet ik
+  nu nieuwBord->kopieerVan(bord) doen om het bord dat aan de functie is
+  gegevn te kopieren naar het nieuw gemaakte bord.
+Daarna maak ik een
+  nieuwe StapelEntry (je mag het ook anders noemen ofc, dit is ook weer
+  met het woord new).
 
-  Van de StapelEntry zet ik het bord op nieuwBord,
-    en vorige maak ik ingang.
-  Daarna zet ik de ingang op de net gemaakte
-    StapelEntry.
-  */
+Van de StapelEntry zet ik het bord op nieuwBord,
+  en vorige maak ik ingang.
+Daarna zet ik de ingang op de net gemaakte
+  StapelEntry.
+*/
 /*
 }//Stapel::zetOpStapel
 
@@ -105,16 +103,16 @@ Stapel::pakVanStapel(){
   return vorigeStapel;
 
 */
-  /*
-  Eerst kijk ik of de ingang een nullptr is.
-  Als dat
-    zo is, dan return ik een nullptr.
-  Als dat niet zo is dan haal ik het bord op
-    van de StapelEntry waar de ingang naartoe wijst en daarna zet ik de
-    ingang naar de vorige van die StapelEntry.
-  Dan return ik gewoon dat
-    bord wat ik daarvoor heb opgehaald.
-  */
+/*
+Eerst kijk ik of de ingang een nullptr is.
+Als dat
+  zo is, dan return ik een nullptr.
+Als dat niet zo is dan haal ik het bord op
+  van de StapelEntry waar de ingang naartoe wijst en daarna zet ik de
+  ingang naar de vorige van die StapelEntry.
+Dan return ik gewoon dat
+  bord wat ik daarvoor heb opgehaald.
+*/
 /*
 }//Stapel::pakVanStapel
 
@@ -158,19 +156,20 @@ koffiebord::kopieerVan(koffiebord* oudBord){
     }//for
     pointerYNieuw = pointerYNieuw -> buren[4];      //beweeg naar beneden
     pointerYOud = pointerYOud -> buren[4];      //beweeg naar beneden
-    pointerXNieuw = pointerYNieuw;                  //laat x weer vanaf links beginnen
-    pointerXOud = pointerYOud;                  //laat x weer vanaf links beginnen
+    pointerXNieuw = pointerYNieuw;                  //laat x weer vanaf links
+beginnen pointerXOud = pointerYOud;                  //laat x weer vanaf links
+beginnen
   }//for
 
 */
-  /*
-  Deze functie krijgt een pointer van
-    een koffiebord als parameter en dan krijgt het bord die deze functie
-    aanroept dezelfde inhoud als het bord dat wordt gegeven als parameter.
-  Dit doe ik door de variabelen zoals aantalZetten, aantalKoffie, etc.
-    natuurlijk gewoon te kopieren en dan alle vakjes van beide borden af te
-    gaan en daarvan het aantal, koffie, open, etc. te kopieren.
-  */
+/*
+Deze functie krijgt een pointer van
+  een koffiebord als parameter en dan krijgt het bord die deze functie
+  aanroept dezelfde inhoud als het bord dat wordt gegeven als parameter.
+Dit doe ik door de variabelen zoals aantalZetten, aantalKoffie, etc.
+  natuurlijk gewoon te kopieren en dan alle vakjes van beide borden af te
+  gaan en daarvan het aantal, koffie, open, etc. te kopieren.
+*/
 /*
 }//koffiebord::zetOpStapel
 */
