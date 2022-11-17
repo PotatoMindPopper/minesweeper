@@ -32,16 +32,18 @@ Mostly made by GitHub Copilot and fixed by [me](https://github.com/PotatoMindPop
 
     - [/] Overthink the following programming languages:
         * [+] C
-        * [+] C++
         * [+] C#
+        * [+] C++
+        * [+] Go
         * [+] Java
         * [+] JavaScript
+        * [+] Objective-C
         * [+] Python
+        * [+] R
         * [+] Ruby
-        * [/] Rust
+        * [+] Rust
         * [-] Swift
         * [-] TypeScript
-        * [+] Go
         * [-] PHP
         * [-] Perl
         * [-] Haskell
@@ -51,12 +53,10 @@ Mostly made by GitHub Copilot and fixed by [me](https://github.com/PotatoMindPop
         * [-] Scala
         * [-] Clojure
         * [-] F#
-        * [+] R
         * [-] Dart
         * [-] Julia
         * [-] Groovy
         * [-] Kotlin
-        * [+] Objective-C
         * [-] Pascal
         * [-] Visual Basic
         * [-] COBOL
