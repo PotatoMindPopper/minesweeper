@@ -17,10 +17,10 @@ Mostly made by GitHub Copilot and fixed by [me](https://github.com/PotatoMindPop
     - [-] Add a .github/ISSUE_TEMPLATE/bug_report.md
     - [-] Add a .github/ISSUE_TEMPLATE/feature_request.md
     - [-] Add a .github/PULL_REQUEST_TEMPLATE.md
-    - [-] Add a .github/CODEOWNERS
-    - [-] Add a .github/FUNDING.yml
-    - [-] Add a .github/SECURITY.md
-    - [-] Add a .github/SUPPORT.md
+    - [/] Add a .github/CODEOWNERS
+    - [/] Add a .github/FUNDING.yml
+    - [/] Add a .github/SECURITY.md
+    - [/] Add a .github/SUPPORT.md
     - [-] Add a .github/dependabot.yml
     - [/] Add a .github/workflows folder
     - [-] Add a .github/workflows/main.yml
