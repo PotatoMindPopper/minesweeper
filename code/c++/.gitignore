@@ -7,6 +7,10 @@
 *.o
 *.obj
 
+# Compiled Assembly files
+*.s
+*.asm
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -30,3 +34,7 @@
 *.exe
 *.out
 *.app
+minesweeper
+
+# Other files
+*.dSYM
