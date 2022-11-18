@@ -10,6 +10,7 @@ Here's how to use this file:
     - [-] Means not started
     - [/] Means work in progress
     - [+] Means done
+    - [x] Means not going to happen
     - [ ] Means nothing, just a new line
 
 In markdown, it looks like this:
@@ -18,6 +19,7 @@ In markdown, it looks like this:
 ␣␣␣␣- [-] Means not started
 ␣␣␣␣- [/] Means work in progress
 ␣␣␣␣- [+] Means done
+␣␣␣␣- [x] Means not going to happen
 ␣␣␣␣- [ ] Means nothing, just a new line
 ```
 
@@ -29,7 +31,7 @@ TODO's about the code itself.
 
 TODO's for [@ImPlotzes](https://github.com/ImPlotzes).
 
-    - [-] Add assignment about minesweeper to /code/c++/plotzes/
+    - [ ]
 
 ### PotatoMindPopper
 
