@@ -14,11 +14,11 @@ Please read [USAGE.md](USAGE.md) before starting a program.
 
 ## Contributing
 
-See [CONTRIBUTING](CONTRIBUTING.md).
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before contributing to the project.
 
 ## License
 
-See [LICENSE](LICENSE.md).
+Please read [LICENSE.md](LICENSE.md) for details on the project's license.
 
 ## Author
 
