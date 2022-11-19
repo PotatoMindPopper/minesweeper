@@ -2,6 +2,21 @@
 
 A ONE LINER
 
+## Index
+
+1. [Description](#description)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Contributing](#contributing)
+5. [License](#license)
+6. [Author](#author)
+7. [Acknowledgements](#acknowledgements)
+8. [References](#references)
+9. [TODO](#todo)
+10. [Changelog](#changelog)
+<!-- 9. [Notes](#notes) -->
+<!-- 8. [Contact](#contact) -->
+
 ## Description
 
 Description of the project
