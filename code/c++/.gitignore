@@ -38,3 +38,6 @@ minesweeper
 
 # Other files
 *.dSYM
+
+# User specific files
+ignore/
