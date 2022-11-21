@@ -1,0 +1,27 @@
+{
+    "4x4": {
+        "Height": 4,
+        "Width": 4,
+        "Percent-mines": {
+            "min": 6,
+            "max": 38
+        }
+    }, 
+    "4x5": {
+        "Height": 4,
+        "Width": 5,
+        "Percent-mines": {
+            "min": 5,
+            "max": 50
+        }
+    },
+    "4x6": {
+        "Height": 4,
+        "Width": 6,
+        "Percent-mines": {
+            "min": 4,
+            "max": 58
+        }
+    },
+    "https://gitlab.gnome.org/GNOME/gnome-mines/-/blob/master/src/gnome-mines.vala":"https://gitlab.gnome.org/GNOME/gnome-mines/-/blob/master/src/gnome-mines.vala"
+}

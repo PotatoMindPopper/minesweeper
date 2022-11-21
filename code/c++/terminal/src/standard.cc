@@ -135,15 +135,63 @@ void loadingDots(const int &n) {
 }
 
 /**
+ * @brief Randomly generate a number between 0 and 10.
+ * 
+ * @return char The randomly generated number.
+ */
+char randomNumber() {
+    return rand() % 10 + 48;
+}
+
+/**
+ * @brief Randomly generate a number between min and max.
+ * 
+ * @param min The minimum number to generate.
+ * @param max The maximum number to generate.
+ * @return int The randomly generated number.
+ */
+int randomNumber(const int &min, const int &max) {
+    return rand() % (max - min + 1) + min;
+}
+
+/**
+ * @brief Randomly generate a uppercase letter.
+ * 
+ * @return char The randomly generated letter.
+ */
+char randomUpperLetter() {
+    return rand() % 26 + 65;
+}
+
+/**
+ * @brief Randomly generate a lowercase letter.
+ * 
+ * @return char The randomly generated letter.
+ */
+char randomLowerLetter() {
+    return rand() % 26 + 97;
+}
+
+/**
  * @brief Generate a random string.
+ * 
+ * The string will hold ([A-Z0-9]) * n.
  * 
  * @param n The length of the string.
  * @return char* The random string.
  */
 char* randomString(const int &n) {
     char* str = new char[n];
+    srand(time(0));
     for (int i = 0; i < n; i++) {
-        str[i] = (char) (rand() % 26 + 97);
+        switch (rand() % 2) {
+            case 0:
+                str[i] = randomUpperLetter();
+                break;
+            case 1:
+                str[i] = randomNumber();
+                break;
+        }
     }
     return str;
 }

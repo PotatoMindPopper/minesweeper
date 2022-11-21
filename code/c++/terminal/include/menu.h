@@ -68,6 +68,7 @@ void printMenu() {
 
 void getChoice(std::string &choice) {
     std::cout << "Enter your choice: ";
+    std::cin.ignore();
     // Read till the end of the line
     std::getline(std::cin, choice);
 }
@@ -115,6 +116,7 @@ void wrongChoice() {
 
 char debugMenu() {
     std::cout << "Menu: " << std::endl;
+    std::cout << "  [P] Play" << std::endl;
     std::cout << "  [N] New game" << std::endl;
     std::cout << "  [L] Load game" << std::endl;
     std::cout << "  [S] Save game" << std::endl;
@@ -129,7 +131,7 @@ char debugMenu() {
         std::cin >> choice;
         char check = std::toupper(choice);
         switch (check) {
-            case 'N': case 'L': case 'S': case 'H': case 'O': case 'Q':
+            case 'N': case 'L': case 'S': case 'H': case 'O': case 'Q': case 'P':
                 correct = true;
                 break;
             default:

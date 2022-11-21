@@ -34,6 +34,9 @@ int main(int argc, char **argv) {
                 case 'S': case 's':
                     table->saveGame();
                     break;
+                case 'P': case 'p':
+                    table->playGame();
+                    break;
                 case 'H': case 'h':
                     table->showHighscoreTable();
                     break;
