@@ -1,6 +1,8 @@
 #ifndef __TABLE_H__
 #define __TABLE_H__
 
+#include "standard.h"
+#include "constants.h"
 #include "cell.h"
 #include <memory>
 

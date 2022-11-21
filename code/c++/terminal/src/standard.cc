@@ -135,6 +135,20 @@ void loadingDots(const int &n) {
 }
 
 /**
+ * @brief Generate a random string.
+ * 
+ * @param n The length of the string.
+ * @return char* The random string.
+ */
+char* randomString(const int &n) {
+    char* str = new char[n];
+    for (int i = 0; i < n; i++) {
+        str[i] = (char) (rand() % 26 + 97);
+    }
+    return str;
+}
+
+/**
  * @brief Shutdown the program.
  * 
  * @return int The exit code.

@@ -11,6 +11,8 @@ void pressEnter();
 void loadingDots();
 void loadingDots(const int &n);
 
+char* randomString(const int &n);
+
 int shutdown();
 
 

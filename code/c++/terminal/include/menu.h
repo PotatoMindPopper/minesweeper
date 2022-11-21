@@ -9,6 +9,7 @@ struct Choices {
         Undefined,
         Intro,
         Start,
+        Options,
         End,
         Wrong
     } type{Undefined};
@@ -58,6 +59,7 @@ void printMenu() {
     std::cout << "|         |   [2]   |   Settings                     |" << std::endl;
     std::cout << "|         |   [3]   |   Return                       |" << std::endl;
     std::cout << "|---------+---------+--------------------------------|" << std::endl;
+    std::cout << "|   [O]   |   Options                                |" << std::endl;
     std::cout << "|   [Q]   |   Quit game                              |" << std::endl;
     std::cout << "|---------+------------------------------------------|" << std::endl;
     std::cout << "|      More information: https://minesweeper.ml      |" << std::endl;
@@ -80,6 +82,9 @@ void processChoice(Choices &choices) {
                 break;
             case 'S': case 's':
                 choices.type = Choices::Type::Start;
+                break;
+            case 'O': case 'o':
+                choices.type = Choices::Type::Options;
                 break;
             case 'Q': case 'q':
                 choices.type = Choices::Type::End;
@@ -132,7 +137,7 @@ char debugMenu() {
                 break;
         }
     }
-    
+
     return choice;
 }
 

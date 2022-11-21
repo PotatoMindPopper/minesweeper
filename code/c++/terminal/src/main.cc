@@ -42,6 +42,7 @@ int main(int argc, char **argv) {
                     break;                    
                 case 'Q': case 'q':
                     table.reset();
+                    choice = 'Q';
                     break;
                 default:
                     std::cout << "Invalid choice" << std::endl;
@@ -62,6 +63,8 @@ int main(int argc, char **argv) {
                     printIntro();
                     break;
                 case Choices::Type::Start:
+                    break;
+                case Choices::Type::Options:
                     break;
                 case Choices::Type::End:
                     break;
