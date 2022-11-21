@@ -30,8 +30,8 @@ class Menu {
 
     private:
         Choices choices{Choices::Type::Undefined, "", '\0'};
-        TableSPtr currentTable;
-        std::stack<TableSPtr> tables;
+        TableSPtr currentTable{nullptr};
+        std::stack<TableSPtr> tables{};
 
         void printMainMenu();
         void processMainMenu();

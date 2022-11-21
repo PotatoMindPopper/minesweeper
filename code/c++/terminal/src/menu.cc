@@ -1,5 +1,15 @@
 #include "../include/menu.h"
 
+Menu::Menu() {
+    // Do nothing
+}
+
+Menu::~Menu() {
+    currentTable.reset();
+    currentTable = nullptr;
+    tables.empty();
+}
+
 void Menu::printIntro() {
     clearScreen();
     std::cout << "======================================================" << std::endl;
@@ -90,6 +100,7 @@ void Menu::wrongChoice() {
     std::cout << "|----------------------------------------------------|" << std::endl;
     std::cout << "|      More information: https://minesweeper.ml      |" << std::endl;
     std::cout << "======================================================" << std::endl;
+    std::cout << "Your answer: " << this->choices.str << std::endl;
     pressEnter();
 }
 
@@ -124,7 +135,7 @@ char Menu::debugMenu() {
 void Menu::processMainMenu() {
     while (this->choices.type != Choices::Type::End) {
         this->printMainMenu();
-        processMainChoice(this->choices);
+        processMainChoice();
         switch (this->choices.type) {
             case Choices::Type::Intro:
                 this->resetChoices();
