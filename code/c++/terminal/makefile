@@ -71,7 +71,7 @@ all:			$(TARGET)
 
 # run is a target that runs the executable
 run:			all
-				./$(TARGET)
+				@./$(TARGET)
 
 # clean is a target that removes all the 
 #  object files, dependencies, and the executable
@@ -113,7 +113,7 @@ $(shell mkdir -p asm)
 
 OPTIMIZATION = -O0
 DEBUG_F	= -ggdb3 -DDEBUG -g
-ASSEMBLY_F = -S
+ASM_F = -S
 C_FLAGS += $(OPTIMIZATION) $(DEBUG_F)
 
 # debug is a target that compiles with debug flags, and is the default target
@@ -181,7 +181,7 @@ $(TARGET):		$(OBJECTS)
 
 # The object files depend on the source files and the header files
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.cc $(HEADERS)
-				$(CXX) $(C_FLAGS) $(CPP_FLAGS) -S -o $(ASM_DIR)/$*.s $<
+				$(CXX) $(C_FLAGS) $(CPP_FLAGS) $(ASM_F) -o $(ASM_DIR)/$*.s $<
 				$(CXX) $(C_FLAGS) $(CPP_FLAGS) -c $< -o $@
 
 # The dependencies depend on the source files and the header files
