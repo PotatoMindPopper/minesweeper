@@ -10,6 +10,10 @@ Menu::~Menu() {
     tables.empty();
 }
 
+/**
+ * @brief Prints the introduction to the program.
+ * 
+ */
 void Menu::printIntro() {
     clearScreen();
     std::cout << "======================================================" << std::endl;
@@ -40,6 +44,10 @@ void Menu::printIntro() {
     this->processMainMenu();
 }
 
+/**
+ * @brief Prints the main menu of the program.
+ * 
+ */
 void Menu::printMainMenu() {
     clearScreen();
     std::cout << "======================================================" << std::endl;
@@ -54,12 +62,20 @@ void Menu::printMainMenu() {
     std::cout << "======================================================" << std::endl;
 }
 
+/**
+ * @brief Get choice from user into the program.
+ * 
+ */
 void Menu::getChoice() {
     std::cout << "Enter your choice: ";
     std::cin.ignore();
     std::getline(std::cin, choices.str);
 }
 
+/**
+ * @brief Processes the user input into a choice type
+ * 
+ */
 void Menu::processMainChoice() {
     this->getChoice();
 
@@ -88,6 +104,10 @@ void Menu::processMainChoice() {
     }
 }
 
+/**
+ * @brief Prints an error screen, for faulty input.
+ * 
+ */
 void Menu::wrongChoice() {
     clearScreen();
     std::cout << "======================================================" << std::endl;
@@ -132,6 +152,10 @@ char Menu::debugMenu() {
     return choice;
 }
 
+/**
+ * @brief Processes the input and starts calling functions.
+ * 
+ */
 void Menu::processMainMenu() {
     while (this->choices.type != Choices::Type::End) {
         this->printMainMenu();
@@ -160,6 +184,29 @@ void Menu::processMainMenu() {
     }
 }
 
+/**
+ * @brief Resets the type.
+ * 
+ * This is needed because choices will be used multiple times.
+ */
 void Menu::resetChoices() {
     this->choices.type = Choices::Type::Undefined;
+}
+
+/**
+ * @brief Run the game.
+ * 
+ * This will startup the table screen with all the game options.
+ */
+void Menu::gameMenu() {
+    // Run the actual game.
+}
+
+/**
+ * @brief Prints a settings menu.
+ * 
+ * This can reset the table values, based upon the input.
+ */
+void Menu::optionsMenu() {
+    // Maybe reset some table values or clear board.
 }

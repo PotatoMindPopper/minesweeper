@@ -39,6 +39,8 @@ class Menu {
         void getChoice();
         void wrongChoice();
         void resetChoices();
+        void gameMenu();
+        void optionsMenu();
 
         char debugMenu();
 
