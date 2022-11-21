@@ -11,6 +11,7 @@
 int main() {
     MenuUPtr menu = std::make_unique<Menu>();
     menu->printIntro();
+    menu = nullptr;
 
     return shutdown();
 }

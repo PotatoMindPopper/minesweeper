@@ -5,9 +5,8 @@ Menu::Menu() {
 }
 
 Menu::~Menu() {
-    currentTable.reset();
     currentTable = nullptr;
-    tables.empty();
+    tables = std::stack<TableSPtr>();
 }
 
 /**

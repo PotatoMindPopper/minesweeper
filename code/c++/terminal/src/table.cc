@@ -6,7 +6,6 @@ Table::Table() {
 }
 
 Table::~Table() {
-    table.reset();
     table = nullptr;
 }
 
