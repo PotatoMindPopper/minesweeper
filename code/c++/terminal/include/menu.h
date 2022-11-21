@@ -108,4 +108,32 @@ void wrongChoice() {
     pressEnter();
 }
 
+char debugMenu() {
+    std::cout << "Menu: " << std::endl;
+    std::cout << "  [N] New game" << std::endl;
+    std::cout << "  [L] Load game" << std::endl;
+    std::cout << "  [S] Save game" << std::endl;
+    std::cout << "  [H] Highscore" << std::endl;
+    std::cout << "  [O] Options" << std::endl;
+    std::cout << "  [Q] Quit game" << std::endl;
+    std::cout << "Enter your choice: ";
+
+    char choice{'\0'};
+    bool correct{false};
+    while (!correct) {
+        std::cin >> choice;
+        char check = std::toupper(choice);
+        switch (check) {
+            case 'N': case 'L': case 'S': case 'H': case 'O': case 'Q':
+                correct = true;
+                break;
+            default:
+                std::cout << "Wrong choice! Try again: ";
+                break;
+        }
+    }
+    
+    return choice;
+}
+
 #endif // __MENU_H__
