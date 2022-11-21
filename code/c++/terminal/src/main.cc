@@ -1,7 +1,5 @@
 #include "../include/menu.h"
-#include "../include/constants.h"
-#include "../include/table.h"
-#include <iostream>
+#include "../include/standard.h"
 
 /**
  * @brief The main function.
@@ -11,10 +9,8 @@
  * @return int The exit code.
  */
 int main() {
-    TableSPtr table = std::make_shared<Table>();
-
-    printIntro();
-    table->menu();
+    MenuUPtr menu = std::make_unique<Menu>();
+    menu->printIntro();
 
     return shutdown();
 }

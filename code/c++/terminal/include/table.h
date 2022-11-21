@@ -14,7 +14,9 @@ class Table {
         Table();
         ~Table();
 
-        void menu();
+        void newGame();
+        void options();
+        void playGame();
 
     private:
         bool gameSetup{false};
@@ -26,24 +28,23 @@ class Table {
         bool showNeighbors{false};
         bool openNeighbors{false};
 
-        int height{-1};
-        int width{-1};
-        int mines{-1};
-        int flags{-1};
-        int opened{-1};
-        int highscore{-1};
-        int time{-1};
+        int height{UNDEFINED};
+        int width{UNDEFINED};
+        int mines{UNDEFINED};
+        int flags{UNDEFINED};
+        int opened{UNDEFINED};
+        int highscore{UNDEFINED};
+        int time{UNDEFINED};
 
-        float percentage{-1};
+        float percentage{UNDEFINED};
 
         CellSPtr table{nullptr};
 
         float validPercentage(const float &percentage);
-    
-        void newGame();
-        void options();
-        void playGame();
 
+        int validHeight(const int &height);
+        int validWidth(const int &width);
+    
 };
 
 #endif // __TABLE_H__

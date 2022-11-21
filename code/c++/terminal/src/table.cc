@@ -23,3 +23,23 @@ float Table::validPercentage(const float &percentage) {
         return percentage;
     }
 }
+
+int Table::validHeight(const int &height) {
+    if (height > MAX_HEIGHT) {
+        return MAX_HEIGHT;
+    } else if (height < MIN_HEIGHT) {
+        return MIN_HEIGHT;
+    } else {
+        return height;
+    }
+}
+
+int Table::validWidth(const int &width) {
+    if (width > MAX_WIDTH) {
+        return MAX_WIDTH;
+    } else if (width < MIN_WIDTH) {
+        return MIN_WIDTH;
+    } else {
+        return width;
+    }
+}
