@@ -3,6 +3,4 @@
 
 #include <string>
 
-const std::string SAFE_DIR = "../safe_files/";
-
 #endif // __CONSTANTS_H__

@@ -12,19 +12,11 @@ typedef std::shared_ptr<class Table> TableSPtr;
 class Table {
     public:
         Table();
-        Table(const int &height, const int &width);
-        Table(const int &height, const int &width, const float &percentage);
         ~Table();
 
-        void newGame();
-        void loadGame();
-        void saveGame();
-        void showHighscoreTable();
-        void options();
-        void playGame();
+        void menu();
 
     private:
-        bool debugMode{false};
         bool gameSetup{false};
         bool gameStarted{false};
         bool gameEnded{false};
@@ -44,12 +36,14 @@ class Table {
 
         float percentage{-1};
 
-        CellSPtr tableBegin{nullptr};
-        CellSPtr tableEnd{nullptr};
-
+        CellSPtr table{nullptr};
 
         float validPercentage(const float &percentage);
     
+        void newGame();
+        void options();
+        void playGame();
+
 };
 
 #endif // __TABLE_H__

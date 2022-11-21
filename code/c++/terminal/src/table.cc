@@ -5,62 +5,9 @@ Table::Table() {
     // Do nothing
 }
 
-Table::Table(const int &height, const int &width) {
-    // height and width - 1 because counting starts from 0
-    if (height > 3 && width > 3) {
-        this->height = height - 1;
-        this->width = width - 1;
-    } else {
-        this->height = 0;
-        this->width = 0;
-    }
-
-    this->tableEnd = std::make_shared<Cell>();
-    this->tableEnd->x = this->width;
-    this->tableEnd->y = this->height;
-}
-
-Table::Table(const int &height, const int &width, const float &percentage) {
-    // height and width - 1 because counting starts from 0
-    if (height > 3 && width > 3) {
-        this->height = height - 1;
-        this->width = width - 1;
-    } else {
-        this->height = 0;
-        this->width = 0;
-    }
-
-    this->percentage = this->validPercentage(percentage);
-    this->tableEnd = std::make_shared<Cell>();
-    this->tableEnd->x = this->width;
-    this->tableEnd->y = this->height;
-}
-
 Table::~Table() {
-    debugMode = false;
-    gameSetup = false;
-    gameStarted = false;
-    gameEnded = false;
-    gameWon = false;
-    showCell = false;
-    markMines = false;
-    showNeighbors = false;
-    openNeighbors = false;
-
-    height = -1;
-    width = -1;
-    mines = -1;
-    flags = -1;
-    opened = -1;
-    highscore = -1;
-    time = -1;
-
-    percentage = -1;
-
-    tableBegin.reset();
-    tableBegin = nullptr;
-    tableEnd.reset();
-    tableEnd = nullptr;
+    table.reset();
+    table = nullptr;
 }
 
 float Table::validPercentage(const float &percentage) {
