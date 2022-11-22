@@ -15,8 +15,11 @@ struct Cell {
     int y{UNDEFINED_INT};
 
     // Neighbor to the right
+    // If end of row is reached, next is beginning of next row.
     CellSPtr next{UNDEFINED_PTR};
+
     // Neighbor to the left
+    // If beginning of row is reached, prev is end of previous row.
     CellSPtr prev{UNDEFINED_PTR};
 
     // 0: up

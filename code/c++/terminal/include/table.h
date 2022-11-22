@@ -59,6 +59,9 @@ class Table {
         CellSPtr copyTable() const;
         CellSPtr copyCell(const CellSPtr &cell) const;
 
+        CellSPtr getCell(const int &x, const int &y) const;
+        CellSPtr getCellRec(const int &x, const int &y, const CellSPtr &cell) const;
+
 };
 
 #endif // __TABLE_H__

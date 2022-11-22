@@ -169,10 +169,8 @@ TableSPtr Table::deepCopy() {
  * @return CellSPtr 
  */ 
 CellSPtr Table::copyCell(const CellSPtr &cell) const {
-
-    if (!cell) {
+    if (!cell)
         return nullptr;
-    }
 
     CellSPtr newCell = std::make_shared<Cell>();
 
@@ -185,18 +183,8 @@ CellSPtr Table::copyCell(const CellSPtr &cell) const {
     newCell->next = this->copyCell(cell->next);
     newCell->prev = this->copyCell(cell->prev);
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 8; i++)
         newCell->neighbors[i] = this->copyCell(cell->neighbors[i]);
-    }
-
-    newCell->up = this->copyCell(cell->up);
-    newCell->down = this->copyCell(cell->down);
-    newCell->left = this->copyCell(cell->left);
-    newCell->right = this->copyCell(cell->right);
-    newCell->up_left = this->copyCell(cell->up_left);
-    newCell->up_right = this->copyCell(cell->up_right);
-    newCell->down_left = this->copyCell(cell->down_left);
-    newCell->down_right = this->copyCell(cell->down_right);
 
     return newCell;
 }
@@ -206,6 +194,67 @@ CellSPtr Table::copyCell(const CellSPtr &cell) const {
  * 
  * @return CellSPtr 
  */ 
-CellSPtr Table::copyTable() const {
-    return this->copyCell(this->table);
+CellSPtr Table::copyTable() const { return this->copyCell(this->table); }
+
+/**
+ * @brief Get the cell at the given coordinates.
+ * 
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @return CellSPtr 
+ */
+CellSPtr Table::getCell(const int &x, const int &y) const {
+    CellSPtr cell = this->table;
+    while (cell) {
+        if (cell->x == x && cell->y == y)
+            return cell;
+        cell = cell->next;
+    }
+    return nullptr;
 }
+
+/**
+ * @brief Get the cell at the given coordinates using recursion.
+ * 
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param cell The cell to start from.
+ * @return CellSPtr 
+ */
+CellSPtr Table::getCellRec(const int &x, const int &y, const CellSPtr &cell) const {
+    if (cell->x == x && cell->y == y)
+        return cell;
+    else if (cell->next)
+        return this->getCellRec(x, y, cell->next);
+    else
+        return nullptr;
+}
+
+/**
+ * @brief Get the cell at the given coordinates using recursion.
+ * 
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param x2 The x coordinate of the column to start from. 
+ *           When x2 != x, the function will go to the next column.
+ * @param y2 The y coordinate of the row to start from. 
+ *           When y2 != y, the function will go to the next row.
+ * @param cell The cell to start from.
+ * @return CellSPtr 
+ */
+CellSPtr Table::getCellRec(const int &x, const int &y, const int &x2, const int &y2, const CellSPtr &cell) const {
+    // Go with recursion, with x2 to the column x and y2 to the row y.
+    if (cell->x == x && cell->y == y)
+        return cell;
+    else if (cell->next) {
+        if (cell->x == x2 && cell->y == y2)
+            return this->getCellRec(x, y, cell->next);
+        else
+            return this->getCellRec(x, y, x2, y2, cell->next);
+    } else
+        return nullptr;
+}
+
+
+
+
