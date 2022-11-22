@@ -10,22 +10,24 @@ struct Cell {
     bool opened{false};
     bool flagged{false};
 
-    int x{0};
-    int y{0};
+    // Coordinates, based on the grid of the table.
+    int x{UNDEFINED_INT};
+    int y{UNDEFINED_INT};
 
-    CellSPtr next{nullptr};
-    CellSPtr prev{nullptr};
+    // Neighbor to the right
+    CellSPtr next{UNDEFINED_PTR};
+    // Neighbor to the left
+    CellSPtr prev{UNDEFINED_PTR};
 
-    CellSPtr neighbors[8]{nullptr};
-    // OR
-    CellSPtr up{neighbors[0]};
-    CellSPtr up_right{neighbors[1]};
-    CellSPtr right{neighbors[2]};
-    CellSPtr down_right{neighbors[3]};
-    CellSPtr down{neighbors[4]};
-    CellSPtr down_left{neighbors[5]};
-    CellSPtr left{neighbors[6]};
-    CellSPtr up_left{neighbors[7]};
+    // 0: up
+    // 1: up_right
+    // 2: right
+    // 3: down_right
+    // 4: down
+    // 5: down_left
+    // 6: left
+    // 7: up_left
+    CellSPtr neighbors[8]{UNDEFINED_PTR};
 };
 
 #endif // __CELL_H__

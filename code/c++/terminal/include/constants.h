@@ -9,6 +9,7 @@ const int MAX_PERCENTAGE = 99;
 const int MIN_PERCENTAGE = 1;
 const int MIN_TIME = 0;
 
-const int UNDEFINED = -1;
+const int UNDEFINED_INT = -1;
+const std::nullptr_t UNDEFINED_PTR = nullptr;
 
 #endif // __CONSTANTS_H__
