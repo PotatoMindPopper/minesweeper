@@ -1,5 +1,9 @@
 #include "../include/menu.h"
 
+#include <iostream>
+#include <stack>
+#include <string>
+
 Menu::Menu() {
     // Do nothing
 }
@@ -62,12 +66,66 @@ void Menu::printMainMenu() {
 }
 
 /**
+ * @brief Prints an error screen, for faulty input.
+ * 
+ */
+void Menu::wrongChoice() {
+    clearScreen();
+    std::cout << "======================================================" << std::endl;
+    std::cout << "|                        ERROR                       |" << std::endl;
+    std::cout << "|----------------------------------------------------|" << std::endl;
+    std::cout << "|                                                    |" << std::endl;
+    std::cout << "|                   Wrongly chosen                   |" << std::endl;
+    std::cout << "|             This answer does not exist             |" << std::endl;
+    std::cout << "|                                                    |" << std::endl;
+    std::cout << "|----------------------------------------------------|" << std::endl;
+    std::cout << "|      More information: https://minesweeper.ml      |" << std::endl;
+    std::cout << "======================================================" << std::endl;
+    std::cout << "Your answer: '" << this->choices.str << "'" << std::endl;
+    pressEnter();
+}
+
+char Menu::debugMenu() {
+    std::cout << "Menu: " << std::endl;
+    std::cout << "  [P] Play" << std::endl;
+    std::cout << "  [N] New game" << std::endl;
+    std::cout << "  [L] Load game" << std::endl;
+    std::cout << "  [S] Save game" << std::endl;
+    std::cout << "  [H] Highscore" << std::endl;
+    std::cout << "  [O] Options" << std::endl;
+    std::cout << "  [Q] Quit game" << std::endl;
+    std::cout << "Enter your choice: ";
+
+    char choice{'\0'};
+    bool correct{false};
+    while (!correct) {
+        std::cin >> choice;
+        char check = std::toupper(choice);
+        switch (check) {
+            case 'N': case 'L': case 'S': case 'H': case 'O': case 'Q': case 'P':
+                correct = true;
+                break;
+            default:
+                std::cout << "Wrong choice! Try again: ";
+                break;
+        }
+    }
+    return choice;
+}
+
+/**
  * @brief Get choice from user into the program.
  * 
  */
 void Menu::getChoice() {
     std::cout << "Enter your choice: ";
-    std::cin.ignore();
+
+    // Makes it so that everything is ignored until a new line is entered, 
+    //  which is not what we want.
+    // std::cin.ignore();
+
+    // std::cin.getline(this->choices.str, 2);
+
     std::getline(std::cin, choices.str);
 }
 
@@ -101,54 +159,6 @@ void Menu::processMainChoice() {
     } else {
         this->choices.type = Choices::Type::Wrong;
     }
-}
-
-/**
- * @brief Prints an error screen, for faulty input.
- * 
- */
-void Menu::wrongChoice() {
-    clearScreen();
-    std::cout << "======================================================" << std::endl;
-    std::cout << "|                        ERROR                       |" << std::endl;
-    std::cout << "|----------------------------------------------------|" << std::endl;
-    std::cout << "|                                                    |" << std::endl;
-    std::cout << "|                   Wrongly chosen                   |" << std::endl;
-    std::cout << "|             This answer does not exist             |" << std::endl;
-    std::cout << "|                                                    |" << std::endl;
-    std::cout << "|----------------------------------------------------|" << std::endl;
-    std::cout << "|      More information: https://minesweeper.ml      |" << std::endl;
-    std::cout << "======================================================" << std::endl;
-    std::cout << "Your answer: " << this->choices.str << std::endl;
-    pressEnter();
-}
-
-char Menu::debugMenu() {
-    std::cout << "Menu: " << std::endl;
-    std::cout << "  [P] Play" << std::endl;
-    std::cout << "  [N] New game" << std::endl;
-    std::cout << "  [L] Load game" << std::endl;
-    std::cout << "  [S] Save game" << std::endl;
-    std::cout << "  [H] Highscore" << std::endl;
-    std::cout << "  [O] Options" << std::endl;
-    std::cout << "  [Q] Quit game" << std::endl;
-    std::cout << "Enter your choice: ";
-
-    char choice{'\0'};
-    bool correct{false};
-    while (!correct) {
-        std::cin >> choice;
-        char check = std::toupper(choice);
-        switch (check) {
-            case 'N': case 'L': case 'S': case 'H': case 'O': case 'Q': case 'P':
-                correct = true;
-                break;
-            default:
-                std::cout << "Wrong choice! Try again: ";
-                break;
-        }
-    }
-    return choice;
 }
 
 /**

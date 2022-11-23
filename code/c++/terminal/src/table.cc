@@ -21,10 +21,10 @@ int Table::getHeight() {
     std::cin >> height;
     if (height < MIN_HEIGHT) {
         std::cout << "Height must be at least " << MIN_HEIGHT << std::endl;
-        return validHeight();
+        return getHeight();
     } else if (height > MAX_HEIGHT) {
         std::cout << "Height must be at most " << MAX_HEIGHT << std::endl;
-        return validHeight();
+        return getHeight();
     } else {
         return height;
     }

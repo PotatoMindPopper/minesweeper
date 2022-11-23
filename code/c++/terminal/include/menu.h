@@ -3,8 +3,8 @@
 
 #include "standard.h"
 #include "table.h"
-#include <iostream>
 #include <stack>
+#include <string>
 
 typedef std::unique_ptr<class Menu> MenuUPtr;
 
