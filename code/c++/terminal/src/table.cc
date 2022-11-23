@@ -10,22 +10,12 @@ Table::~Table() {
     table = nullptr;
 }
 
-
-
-
-
-
-
-
-
-
-
 /**
  * @brief Get the user input for the height of the table
  * 
  * @return int The height of the table
  */
-int Table::validHeight() {
+int Table::getHeight() {
     std::cout << "Enter the height of the table: ";
     int height;
     std::cin >> height;
@@ -45,7 +35,7 @@ int Table::validHeight() {
  * 
  * @return int The width of the table
  */
-int Table::validWidth() {
+int Table::getWidth() {
     std::cout << "Enter the width of the table: ";
     int width;
     std::cin >> width;
@@ -66,50 +56,11 @@ int Table::validWidth() {
 }
 
 /**
- * @brief Initialize a new game.
- * 
- */
-void Table::newGame() {
-
-    // Set grid height;
-    this->height = this->validHeight();
-
-    // Set grid width;
-    this->width = this->validWidth();
-
-    // Set min and max mines;
-    int gridSize = (this->height + 1) * (this->width + 1);
-    this->min_mines = (int) round(100.0f * ((float)(gridSize - 10) / gridSize));
-    this->max_mines = (int) fmax(1, (int) round(100.0f / gridSize));
-
-    // Set user mines percentage;
-    int iPerc{UNDEFINED_INT};
-    std::cout << "Enter the percentage of mines: ";
-    std::cin >> iPerc;
-
-
-
-    // Check if iPerc is valid, within the grid bounds;
-
-    // If precent_mines is already within the given input and predetermined small value.
-    if (fabs(this->percentage - iPerc) <= 0.5f) {;}
-
-
-
-    this->mines = (int) round((float)this->percentage * (float)(this->height + 1) * (float)(this->width + 1) / 100.0f);
-    this->flags = this->mines;
-    this->opened = 0;
-
-
-
-}
-
-/**
  * @brief Make a shallow copy of the table handler, all pointers are copied.
  * 
  * @return TableUPtr 
  */
-TableUPtr Table::shallowCopy() {
+TableUPtr Table::shallowCopy() const {
     TableUPtr copy = std::make_unique<Table>();
     copy->gameSetup = this->gameSetup;
     copy->gameStarted = this->gameStarted;
@@ -138,7 +89,7 @@ TableUPtr Table::shallowCopy() {
  * 
  * @return TableSPtr 
  */
-TableSPtr Table::deepCopy() {
+TableSPtr Table::deepCopy() const {
     TableSPtr copy = std::make_shared<Table>();
     copy->gameSetup = this->gameSetup;
     copy->gameStarted = this->gameStarted;
@@ -197,13 +148,13 @@ CellSPtr Table::copyCell(const CellSPtr &cell) const {
 CellSPtr Table::copyTable() const { return this->copyCell(this->table); }
 
 /**
- * @brief Get the cell at the given coordinates.
+ * @brief Get the cell at the given coordinates using while loops.
  * 
  * @param x The x coordinate.
  * @param y The y coordinate.
  * @return CellSPtr 
  */
-CellSPtr Table::getCell(const int &x, const int &y) const {
+CellSPtr Table::getCellWhile(const int &x, const int &y) const {
     CellSPtr cell = this->table;
     while (cell) {
         if (cell->x == x && cell->y == y)
@@ -231,30 +182,70 @@ CellSPtr Table::getCellRec(const int &x, const int &y, const CellSPtr &cell) con
 }
 
 /**
- * @brief Get the cell at the given coordinates using recursion.
+ * @brief Get the cell at the given coordinates using for loops.
  * 
  * @param x The x coordinate.
  * @param y The y coordinate.
- * @param x2 The x coordinate of the column to start from. 
- *           When x2 != x, the function will go to the next column.
- * @param y2 The y coordinate of the row to start from. 
- *           When y2 != y, the function will go to the next row.
- * @param cell The cell to start from.
  * @return CellSPtr 
  */
-CellSPtr Table::getCellRec(const int &x, const int &y, const int &x2, const int &y2, const CellSPtr &cell) const {
-    // Go with recursion, with x2 to the column x and y2 to the row y.
-    if (cell->x == x && cell->y == y)
-        return cell;
-    else if (cell->next) {
-        if (cell->x == x2 && cell->y == y2)
-            return this->getCellRec(x, y, cell->next);
+CellSPtr Table::getCellFor(const int &x, const int &y) const {
+    CellSPtr cell = this->table;
+    for (int i = 0; i < x; i++) {
+        if (cell->x == x)
+            break;
+        else if (cell->neighbors[RIGHT])
+            cell = cell->neighbors[RIGHT];
         else
-            return this->getCellRec(x, y, x2, y2, cell->next);
-    } else
-        return nullptr;
+            return nullptr;
+    }
+    for (int i = 0; i < y; i++) {
+        if (cell->y == y)
+            return cell;
+        else if (cell->neighbors[DOWN])
+            cell = cell->neighbors[DOWN];
+        else
+            return nullptr;
+    }
+    return nullptr;
 }
 
+/**
+ * @brief Initialize a new game.
+ * 
+ */
+void Table::newGame() {
 
+    // Set grid height;
+    this->height = this->getHeight();
+
+    // Set grid width;
+    this->width = this->getWidth();
+
+    // Set min and max mines;
+    int gridSize = (this->height + 1) * (this->width + 1);
+    this->min_mines = (int) round(100.0f * ((float)(gridSize - 10) / gridSize));
+    this->max_mines = (int) fmax(1, (int) round(100.0f / gridSize));
+
+    // Set user mines percentage;
+    int iPerc{UNDEFINED_INT};
+    std::cout << "Enter the percentage of mines: ";
+    std::cin >> iPerc;
+
+
+
+    // Check if iPerc is valid, within the grid bounds;
+
+    // If precent_mines is already within the given input and predetermined small value.
+    if (fabs(this->percentage - iPerc) <= 0.5f) {;}
+
+
+
+    this->mines = (int) round((float)this->percentage * (float)(this->height + 1) * (float)(this->width + 1) / 100.0f);
+    this->flags = this->mines;
+    this->opened = 0;
+
+
+
+}
 
 

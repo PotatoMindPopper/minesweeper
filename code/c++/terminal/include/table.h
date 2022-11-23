@@ -18,48 +18,48 @@ class Table {
         void options();
         void playGame();
 
-        TableSPtr deepCopy();
-        TableUPtr shallowCopy();
+        TableSPtr deepCopy() const;
+        TableUPtr shallowCopy() const;
 
     private:
-        bool gameSetup{false};
-        bool gameStarted{false};
-        bool gameEnded{false};
-        bool gameWon{false};
-        bool showCell{false};       // Use as clockpulse
+        bool gameWon{false};        // True if the game has been won.
+        bool showCell{false};       // Use as clockpulse; set in propagate / processMenu
         bool markMine{false};       // Set in propagate / processMenu
-        bool showNeighbors{false};
-        bool openNeighbors{false};
+        bool gameSetup{false};      // Set in newGame
+        bool gameEnded{false};
+        bool gameStarted{false};
+        bool showNeighbors{false};  // Set in propagate / processMenu
+        bool openNeighbors{false};  // Set in propagate / processMenu
 
-        int height{UNDEFINED_INT};
-        int width{UNDEFINED_INT};
-        int min_mines{UNDEFINED_INT};
-        int max_mines{UNDEFINED_INT};
-        int mines{UNDEFINED_INT};
-        int flags{UNDEFINED_INT};
-        int opened{UNDEFINED_INT};
-        int highscore{UNDEFINED_INT};
-        int time{UNDEFINED_INT};
+        int time{UNDEFINED_INT};        // Time in seconds
+        int mines{UNDEFINED_INT};       // Number of mines
+        int flags{UNDEFINED_INT};       // Number of flags placed
+        int width{UNDEFINED_INT};       // Number of columns
+        int height{UNDEFINED_INT};      // Number of rows
+        int opened{UNDEFINED_INT};      // Number of cells opened
+        int min_mines{UNDEFINED_INT};   // Minimum number of mines
+        int max_mines{UNDEFINED_INT};   // Maximum number of mines
+        int highscore{UNDEFINED_INT};   // Highscore
 
-        float percentage{UNDEFINED_INT};
+        float percentage{UNDEFINED_INT};    // Percentage of mines
 
-        CellSPtr table{nullptr};
+        CellSPtr table{UNDEFINED_PTR};    // Pointer to the table
 
-        float validPercentage(const float &percentage);
         float percent_mines() const;
+        float validPercentage(const float &percentage);
 
-        int validHeight(const int &height);
-        int validHeight();
+        int getWidth();
+        int getHeight();
         int validWidth(const int &width);
-        int validWidth();
+        int validHeight(const int &height);
 
         void set_mines_limit();
         void set_mines(const int &input);
 
         CellSPtr copyTable() const;
         CellSPtr copyCell(const CellSPtr &cell) const;
-
-        CellSPtr getCell(const int &x, const int &y) const;
+        CellSPtr getCellFor(const int &x, const int &y) const;
+        CellSPtr getCellWhile(const int &x, const int &y) const;
         CellSPtr getCellRec(const int &x, const int &y, const CellSPtr &cell) const;
 
 };
