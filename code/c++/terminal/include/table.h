@@ -4,6 +4,7 @@
 #include "standard.h"
 #include "constants.h"
 #include "cell.h"
+#include "constants_with_includes.h"
 #include <memory>
 
 typedef std::unique_ptr<class Table> TableUPtr;
@@ -31,7 +32,7 @@ class Table {
         bool showNeighbors{false};  // Set in propagate / processMenu
         bool openNeighbors{false};  // Set in propagate / processMenu
 
-        int time{UNDEFINED_INT};        // Time in seconds
+        int time{UNDEFINED_INT};        // Time elapsed in int seconds
         int flags{UNDEFINED_INT};       // Number of flags placed
         int width{UNDEFINED_INT};       // Number of columns
         int height{UNDEFINED_INT};      // Number of rows
@@ -46,6 +47,12 @@ class Table {
 
         CellSPtr table{UNDEFINED_PTR};    // Pointer to the table
 
+        TimePoint startTime{UNDEFINED_TIME};    // Start time
+        TimePoint endTime{UNDEFINED_TIME};      // End time
+        TimePoint currentTime{UNDEFINED_TIME};  // Current time
+
+        Duration duration{UNDEFINED_DURATION};  // Duration of the game
+
         float percent_mines() const;
         float validPercentage(const float &percentage);
 
@@ -53,6 +60,7 @@ class Table {
         int getHeight();
         int validWidth(const int &width);
         int validHeight(const int &height);
+        int getPercentage();
 
         void createGrid();
         void set_mines_limit();

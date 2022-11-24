@@ -9,7 +9,12 @@ const int MAX_PERCENTAGE{99};
 const int MIN_PERCENTAGE{1};
 const int MIN_TIME{0};
 
+const int DEFAULT_WIDTH{10};
+const int DEFAULT_HEIGHT{10};
+const int DEFAULT_PERCENTAGE{20};
+
 const int UNDEFINED_INT{-1};
+const char UNDEFINED_CHAR{'\0'};
 const std::nullptr_t UNDEFINED_PTR{nullptr};
 
 const int UP{0};

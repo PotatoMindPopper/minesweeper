@@ -391,12 +391,50 @@ void Table::setNeighbors(const CellSPtr &cell) const {
         cell->neighbors[DOWN_RIGHT] = nullptr;
 }
 
+int Table::getPercentage() {
+    // TODO: Pas deze line nog aan naar min en max values;
+    std::cout << "Enter the percentage of mines (1 - 99): ";
+    int percentage;
+    std::cin >> percentage;
+    while (percentage < MIN_PERCENTAGE || percentage > MAX_PERCENTAGE) {
+        std::cout << "Invalid percentage. Enter a percentage between 1 and 99: ";
+        std::cin >> percentage;
+    }
+
+
+
+
+    int iPerc{UNDEFINED_INT};
+    std::cout << "Enter the percentage of mines: ";
+    std::cin >> iPerc;
+
+
+
+    // Check if iPerc is valid, within the grid bounds;
+
+    // If precent_mines is already within the given input and predetermined small value.
+    if (!(fabs(this->percentage - iPerc) <= 0.5f)) {
+        int gridSize = (this->height + 1) * (this->width + 1);
+        int tempMines = (int) round((float) iPerc / 100.0f * gridSize);
+        if (tempMines >= this->min_mines && tempMines <= this->max_mines) {
+            this->percentage = iPerc;
+        } else {
+            this->percentage = DEFAULT_PERCENTAGE;
+            std::cout << "Invalid percentage of mines. Using default value of " << this->percentage << "%." << std::endl;
+        }
+    }
+
+
+
+
+    return percentage;
+}
+
 /**
  * @brief Initialize a new game.
  * 
  */
 void Table::newGame() {
-
     // Set grid height;
     this->height = this->getHeight();
 
@@ -409,23 +447,120 @@ void Table::newGame() {
     this->max_mines = (int) fmax(1, (int) round(100.0f / gridSize));
 
     // Set user mines percentage;
-    int iPerc{UNDEFINED_INT};
-    std::cout << "Enter the percentage of mines: ";
-    std::cin >> iPerc;
+    this->percentage = this->getPercentage();
 
-
-
-    // Check if iPerc is valid, within the grid bounds;
-
-    // If precent_mines is already within the given input and predetermined small value.
-    if (fabs(this->percentage - iPerc) <= 0.5f) {;}
-
-
-
-    this->totalMines = (int) round((float)this->percentage * (float)(this->height + 1) * (float)(this->width + 1) / 100.0f);
+    this->totalMines = (int) round((float)this->percentage * (float)(this->height - 1) * (float)(this->width - 1) / 100.0f);
     this->totalFlags = this->totalMines;
     this->opened = 0;
+    this->flags = 0;
 
+    // Create and setup the grid;
+    this->createGrid();
 
+    // Time the game;
+    this->startTime = std::chrono::system_clock::now();
 
+    // Game is setup;
+    this->gameSetup = true;
+
+    std::cout << "New game started!" << std::endl;
+    
+    // Start the game loop; Jump to menu;
+    this->playGame();
+}
+
+/**
+ * @brief Play the game.
+ * 
+ */
+void Table::playGame() {
+    // Check if the game is setup;
+    if (!this->gameSetup) {
+        std::cout << "Game is not setup yet!" << std::endl;
+        return;
+    }
+
+    // Check if the game is over;
+    if (this->gameEnded) {
+        std::cout << "Game is over!" << std::endl;
+        return;
+    }
+
+    // Check if the game is won;
+    if (this->gameWon) {
+        std::cout << "Game is won!" << std::endl;
+        return;
+    }
+
+    // Print the grid;
+    this->printGrid();
+
+    // Get the user input;
+    int x, y;
+    std::cout << "Enter the x and y coordinates: ";
+    std::cin >> x >> y;
+
+    // Check if the user input is valid;
+    if (x < 0 || x > this->width - 1 || y < 0 || y > this->height - 1) {
+        std::cout << "Invalid coordinates!" << std::endl;
+        return;
+    }
+
+    // Get the cell;
+    CellSPtr cell = this->getCellFor(x, y);
+
+    // Check if the cell is already opened;
+    if (cell->opened) {
+        std::cout << "Cell is already opened!" << std::endl;
+        return;
+    }
+
+    // Check if the cell is flagged;
+    if (cell->flagged) {
+        std::cout << "Cell is flagged!" << std::endl;
+        return;
+    }
+
+    // Check if the cell is a mine;
+    if (cell->mine) {
+        // Game over;
+        this->gameEnded = true;
+        this->gameWon = false;
+
+        // Open all cells;
+        this->openAllCells();
+
+        // Print the grid;
+        this->printGrid();
+
+        // Print the game over message;
+        std::cout << "Game over!" << std::endl;
+
+        // Print the game time;
+        this->printGameTime();
+
+        // Jump to menu;
+        this->menu();
+    } else {
+        // Open the cell;
+        this->openCell(cell);
+
+        // Check if the game is won;
+        if (this->gameWon) {
+            // Print the grid;
+            this->printGrid();
+
+            // Print the game won message;
+            std::cout << "Game won!" << std::endl;
+
+            // Print the game time;
+            this->printGameTime();
+
+            // Jump to menu;
+            this->menu();
+        } else {
+            // Jump to playGame;
+            this->playGame();
+        }
+    }
 }
