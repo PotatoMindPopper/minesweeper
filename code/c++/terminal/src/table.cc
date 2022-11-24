@@ -80,7 +80,7 @@ TableUPtr Table::shallowCopy() const {
     copy->highscore = this->highscore;
     copy->time = this->time;
     copy->percentage = this->percentage;
-    copy->table = this->copyCell(this->table);
+    copy->table = this->copyTable();
     return copy;
 }
 
@@ -109,7 +109,7 @@ TableSPtr Table::deepCopy() const {
     copy->highscore = this->highscore;
     copy->time = this->time;
     copy->percentage = this->percentage;
-    copy->table = this->copyCell(this->table);
+    copy->table = this->copyTable();
     return copy;
 }
 
