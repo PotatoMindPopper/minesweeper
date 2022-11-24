@@ -2,10 +2,18 @@
 #include <cmath>
 #include <iostream>
 
+/**
+ * @brief Construct a new Table:: Table object
+ * 
+ */
 Table::Table() {
     // Do nothing
 }
 
+/**
+ * @brief Destroy the Table:: Table object
+ * 
+ */
 Table::~Table() {
     table = UNDEFINED_PTR;
 }
@@ -391,45 +399,6 @@ void Table::setNeighbors(const CellSPtr &cell) const {
         cell->neighbors[DOWN_RIGHT] = nullptr;
 }
 
-int Table::getPercentage() {
-    // TODO: Pas deze line nog aan naar min en max values;
-    std::cout << "Enter the percentage of mines (1 - 99): ";
-    int percentage;
-    std::cin >> percentage;
-    while (percentage < MIN_PERCENTAGE || percentage > MAX_PERCENTAGE) {
-        std::cout << "Invalid percentage. Enter a percentage between 1 and 99: ";
-        std::cin >> percentage;
-    }
-
-
-
-
-    int iPerc{UNDEFINED_INT};
-    std::cout << "Enter the percentage of mines: ";
-    std::cin >> iPerc;
-
-
-
-    // Check if iPerc is valid, within the grid bounds;
-
-    // If precent_mines is already within the given input and predetermined small value.
-    if (!(fabs(this->percentage - iPerc) <= 0.5f)) {
-        int gridSize = (this->height + 1) * (this->width + 1);
-        int tempMines = (int) round((float) iPerc / 100.0f * gridSize);
-        if (tempMines >= this->min_mines && tempMines <= this->max_mines) {
-            this->percentage = iPerc;
-        } else {
-            this->percentage = DEFAULT_PERCENTAGE;
-            std::cout << "Invalid percentage of mines. Using default value of " << this->percentage << "%." << std::endl;
-        }
-    }
-
-
-
-
-    return percentage;
-}
-
 /**
  * @brief Initialize a new game.
  * 
@@ -467,6 +436,50 @@ void Table::newGame() {
     
     // Start the game loop; Jump to menu;
     this->playGame();
+}
+
+/**
+ * @brief Get the percentage of mines.
+ * 
+ * @return int The percentage of mines.
+ */
+int Table::getPercentage() {
+    // TODO: Pas deze line nog aan naar min en max values;
+    std::cout << "Enter the percentage of mines (1 - 99): ";
+    int percentage;
+    std::cin >> percentage;
+    while (percentage < MIN_PERCENTAGE || percentage > MAX_PERCENTAGE) {
+        std::cout << "Invalid percentage. Enter a percentage between 1 and 99: ";
+        std::cin >> percentage;
+    }
+
+
+
+
+    int iPerc{UNDEFINED_INT};
+    std::cout << "Enter the percentage of mines: ";
+    std::cin >> iPerc;
+
+
+
+    // Check if iPerc is valid, within the grid bounds;
+
+    // If precent_mines is already within the given input and predetermined small value.
+    if (!(fabs(this->percentage - iPerc) <= 0.5f)) {
+        int gridSize = (this->height + 1) * (this->width + 1);
+        int tempMines = (int) round((float) iPerc / 100.0f * gridSize);
+        if (tempMines >= this->min_mines && tempMines <= this->max_mines) {
+            this->percentage = iPerc;
+        } else {
+            this->percentage = DEFAULT_PERCENTAGE;
+            std::cout << "Invalid percentage of mines. Using default value of " << this->percentage << "%." << std::endl;
+        }
+    }
+
+
+
+
+    return percentage;
 }
 
 /**
