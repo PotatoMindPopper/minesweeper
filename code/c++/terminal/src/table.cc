@@ -214,42 +214,41 @@ CellSPtr Table::getCellFor(const int &x, const int &y) const {
 }
 
 /**
- * @brief Initialize a new game.
+ * @brief Place the mines on the grid.
  * 
+ * This will be done using the this->percentage value.
  */
-void Table::newGame() {
+void Table::placeMines() const {
+    // Get the number of mines;
+    // This is updated every time a new game is started;
+    int mines = this->totalMines;
 
-    // Set grid height;
-    this->height = this->getHeight();
+    // Place the mines;
+    CellSPtr cell = this->table;
+    while (cell) {
+        if (mines > 0) {
+            if (randomNumber(0, 1) % 2 == 0) {
+                cell->mine = true;
+                mines--;
+            }
+        }
+        cell = cell->next;
+    }
 
-    // Set grid width;
-    this->width = this->getWidth();
+    // Set the numbers;
+    cell = this->table;
+    while (cell) {
+        if (!cell->mine) {
+            for (int i = 0; i < 8; i++) {
+                if (cell->neighbors[i] && cell->neighbors[i]->mine)
+                    cell->neighbors_mines++;
+            }
+        }
+        cell = cell->next;
+    }
 
-    // Set min and max mines;
-    int gridSize = (this->height + 1) * (this->width + 1);
-    this->min_mines = (int) round(100.0f * ((float)(gridSize - 10) / gridSize));
-    this->max_mines = (int) fmax(1, (int) round(100.0f / gridSize));
-
-    // Set user mines percentage;
-    int iPerc{UNDEFINED_INT};
-    std::cout << "Enter the percentage of mines: ";
-    std::cin >> iPerc;
-
-
-
-    // Check if iPerc is valid, within the grid bounds;
-
-    // If precent_mines is already within the given input and predetermined small value.
-    if (fabs(this->percentage - iPerc) <= 0.5f) {;}
-
-
-
-    this->totalMines = (int) round((float)this->percentage * (float)(this->height + 1) * (float)(this->width + 1) / 100.0f);
-    this->totalFlags = this->totalMines;
-    this->opened = 0;
-
-
-
+    // Reset cell;
+    cell = nullptr;
 }
 
 /**
@@ -380,39 +379,40 @@ void Table::setNeighbors(const CellSPtr &cell) const {
 }
 
 /**
- * @brief Place the mines on the grid.
+ * @brief Initialize a new game.
  * 
- * This will be done using the this->percentage value.
  */
-void Table::placeMines() const {
-    // Get the number of mines;
-    // This is updated every time a new game is started;
-    int mines = this->totalMines;
+void Table::newGame() {
 
-    // Place the mines;
-    CellSPtr cell = this->table;
-    while (cell) {
-        if (mines > 0) {
-            if (randomNumber(0, 1) % 2 == 0) {
-                cell->mine = true;
-                mines--;
-            }
-        }
-        cell = cell->next;
-    }
+    // Set grid height;
+    this->height = this->getHeight();
 
-    // Set the numbers;
-    cell = this->table;
-    while (cell) {
-        if (!cell->mine) {
-            for (int i = 0; i < 8; i++) {
-                if (cell->neighbors[i] && cell->neighbors[i]->mine)
-                    cell->neighbors_mines++;
-            }
-        }
-        cell = cell->next;
-    }
+    // Set grid width;
+    this->width = this->getWidth();
 
-    // Reset cell;
-    cell = nullptr;
+    // Set min and max mines;
+    int gridSize = (this->height + 1) * (this->width + 1);
+    this->min_mines = (int) round(100.0f * ((float)(gridSize - 10) / gridSize));
+    this->max_mines = (int) fmax(1, (int) round(100.0f / gridSize));
+
+    // Set user mines percentage;
+    int iPerc{UNDEFINED_INT};
+    std::cout << "Enter the percentage of mines: ";
+    std::cin >> iPerc;
+
+
+
+    // Check if iPerc is valid, within the grid bounds;
+
+    // If precent_mines is already within the given input and predetermined small value.
+    if (fabs(this->percentage - iPerc) <= 0.5f) {;}
+
+
+
+    this->totalMines = (int) round((float)this->percentage * (float)(this->height + 1) * (float)(this->width + 1) / 100.0f);
+    this->totalFlags = this->totalMines;
+    this->opened = 0;
+
+
+
 }
