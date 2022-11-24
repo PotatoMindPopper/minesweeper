@@ -302,6 +302,7 @@ void Table::createGrid() {
     // Link all neighbors;
     // The neighbors are at this stage only linked by the next and prev pointers.
     // Now start with linking the neighbors[8] array of the grid.
+    // Do this by walking all the cells and using the this->getCellWhile(x,y) function.
     cell = this->table;
     while (cell) {
         if (cell->x == 0 && cell->y == 0) {
