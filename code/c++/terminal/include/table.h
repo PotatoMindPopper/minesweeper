@@ -27,8 +27,8 @@ class Table {
         bool showCell{false};       // Use as clockpulse; set in propagate / processMenu
         bool markMine{false};       // Set in propagate / processMenu
         bool gameSetup{false};      // Set in newGame
-        bool gameEnded{false};
-        bool gameStarted{false};
+        bool gameEnded{false};      // Set in propagate / processMenu
+        bool gameStarted{false};    // Set in propagate / processMenu
         bool showNeighbors{false};  // Set in propagate / processMenu
         bool openNeighbors{false};  // Set in propagate / processMenu
 
