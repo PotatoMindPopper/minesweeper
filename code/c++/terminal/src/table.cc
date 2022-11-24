@@ -261,41 +261,103 @@ void Table::createGrid() {
     this->table->x = 0;
     this->table->y = 0;
 
-    // Create the rest of the cells;
+    // Pointer next is the neighbor to the right
+    // If end of row is reached, next is beginning of next row.
+    // Pointer prev is the neighbor to the left
+    // If beginning of row is reached, prev is end of previous row.
+    // Pointer neighbors is the neighbor in the given direction.
+    // 0: up
+    // 1: up_right
+    // 2: right
+    // 3: down_right
+    // 4: down
+    // 5: down_left
+    // 6: left
+    // 7: up_left
+
+    // Create the rest of the grid;
     CellSPtr cell = this->table;
-    for (int i = 0; i < this->height; i++) {
-        for (int j = 0; j < this->width; j++) {
-            cell->next = std::make_shared<Cell>();
-            cell->next->prev = cell;
-            cell = cell->next;
-            cell->x = j + 1;
-            cell->y = i;
-        }
-        if (i < this->height - 1) {
-            cell->next = std::make_shared<Cell>();
-            cell->next->prev = cell;
-            cell = cell->next;
-            cell->x = 0;
-            cell->y = i + 1;
+    for (int y = 0; y <= this->height; y++) {
+        for (int x = 0; x <= this->width; x++) {
+            if (x == 0 && y == 0)
+                continue;
+            else if (x == 0) {
+                cell->next = std::make_shared<Cell>();
+                cell->next->x = x;
+                cell->next->y = y;
+                cell->next->prev = cell;
+                cell = cell->next;
+            } else {
+                cell->next = std::make_shared<Cell>();
+                cell->next->x = x;
+                cell->next->y = y;
+                cell->next->prev = cell;
+                cell->next->neighbors[LEFT] = cell;
+                cell->neighbors[RIGHT] = cell->next;
+                cell = cell->next;
+            }
         }
     }
 
-    // Link all cell->neighbors pointers;
-    // Do this using a for loop, with [8] directions for all the neighbors and [2] directions, being x and y;
+    // Link all neighbors;
+    // The neighbors are at this stage only linked by the next and prev pointers.
+    // Now start with linking the neighbors[8] array of the grid.
     cell = this->table;
-    for (int i = 0; i < this->height + 1; i++) {
-        for (int j = 0; j < this->width + 1; j++) {
-            // Link all the neighbors;
-            for (int k = 0; k < 8; k++) {
-                int x = cell->x + (k % 3) - 1;
-                int y = cell->y + (k / 3) - 1;
-                if (x >= 0 && x <= this->width && y >= 0 && y <= this->height)
-                    cell->neighbors[k] = this->getCellFor(x, y);
-            }
-            // Move to the next cell;
-            cell = cell->next;
+    while (cell) {
+        if (cell->x == 0 && cell->y == 0) {
+            cell->neighbors[RIGHT] = cell->next;
+            cell->neighbors[DOWN] = cell->next->next;
+            cell->neighbors[DOWN_RIGHT] = cell->next->next->next;
+        } else if (cell->x == 0 && cell->y == this->height) {
+            cell->neighbors[UP] = cell->prev->prev;
+            cell->neighbors[UP_RIGHT] = cell->prev->prev->prev;
+            cell->neighbors[RIGHT] = cell->prev;
+        } else if (cell->x == this->width && cell->y == 0) {
+            cell->neighbors[DOWN] = cell->next->next;
+            cell->neighbors[DOWN_LEFT] = cell->next->next->next;
+            cell->neighbors[LEFT] = cell->next;
+        } else if (cell->x == this->width && cell->y == this->height) {
+            cell->neighbors[UP] = cell->prev->prev;
+            cell->neighbors[UP_LEFT] = cell->prev->prev->prev;
+            cell->neighbors[LEFT] = cell->prev;
+        } else if (cell->x == 0) {
+            cell->neighbors[UP] = cell->prev->prev;
+            cell->neighbors[UP_RIGHT] = cell->prev->prev->prev;
+            cell->neighbors[RIGHT] = cell->prev;
+            cell->neighbors[DOWN] = cell->next->next;
+            cell->neighbors[DOWN_RIGHT] = cell->next->next->next;
+        } else if (cell->x == this->width) {
+            cell->neighbors[UP] = cell->prev->prev;
+            cell->neighbors[UP_LEFT] = cell->prev->prev->prev;
+            cell->neighbors[LEFT] = cell->prev;
+            cell->neighbors[DOWN] = cell->next->next;
+            cell->neighbors[DOWN_LEFT] = cell->next->next->next;
+        } else if (cell->y == 0) {
+            cell->neighbors[RIGHT] = cell->next;
+            cell->neighbors[DOWN] = cell->next->next;
+            cell->neighbors[DOWN_RIGHT] = cell->next->next->next;
+            cell->neighbors[DOWN_LEFT];
+            cell->neighbors[LEFT] = cell->prev;
+        } else if (cell->y == this->height) {
+            cell->neighbors[UP] = cell->prev->prev;
+            cell->neighbors[UP_RIGHT] = cell->prev->prev->prev;
+            cell->neighbors[RIGHT] = cell->prev;
+            cell->neighbors[UP_LEFT] = cell->prev->prev->prev->prev;
+            cell->neighbors[LEFT] = cell->prev->prev->prev->prev->prev;
+        } else {
+            cell->neighbors[UP] = cell->prev->prev;
+            cell->neighbors[UP_RIGHT] = cell->prev->prev->prev;
+            cell->neighbors[RIGHT] = cell->prev;
+            cell->neighbors[DOWN] = cell->next->next;
+            cell->neighbors[DOWN_RIGHT] = cell->next->next->next;
+            cell->neighbors[DOWN_LEFT] = cell->next->next->next->next;
+            cell->neighbors[LEFT] = cell->next;
+            cell->neighbors[UP_LEFT] = cell->prev->prev->prev->prev;
         }
+        cell = cell->next;
     }
+    
+
 
     // Set the mines;
     this->placeMines();
