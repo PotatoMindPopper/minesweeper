@@ -58,11 +58,8 @@ class Table {
         void set_mines_limit();
         void placeMines() const;
         void setNeighbors() const;
-        void setNeighborsFast() const;
         void set_mines(const int &input);
         void setNeighbors(const CellSPtr &cell) const;
-        void setNeighborsFast(const CellSPtr &cell) const;
-        void setNeighbors(const int &x, const int &y) const;
 
         CellSPtr copyTable() const;
         CellSPtr copyCell(const CellSPtr &cell) const;

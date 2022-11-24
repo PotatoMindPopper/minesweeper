@@ -302,82 +302,20 @@ void Table::createGrid() {
     }
 
     // Link all neighbors;
-    CellSPtr cell = this->table;
-    while (cell) {
-        this->setNeighbors(cell);
-        cell = cell->next;
-    }
+    this->setNeighbors();
 
     // Set mines and numbers;
     this->placeMines();
 
     // Reset the all local cell pointers;
-    cell = nullptr;
     curr_walker = nullptr;
     prev_walker = nullptr;
 }
 
-void Table::setNeighbors(const CellSPtr &cell) const {
-    // Neighbors:
-        // neighbors[UP] = x, y - 1;
-        // neighbors[DOWN] = x, y + 1;
-        // neighbors[LEFT] = prev;
-        // neighbors[RIGHT] = next;
-        // neighbors[UP_LEFT] = neighbors[UP]->neighbors[LEFT];
-        // neighbors[UP_RIGHT] = neighbors[UP]->neighbors[RIGHT];
-        // neighbors[DOWN_LEFT] = neighbors[DOWN]->neighbors[LEFT];
-        // neighbors[DOWN_RIGHT] = neighbors[DOWN]->neighbors[RIGHT];
-        // if (at the edge of the grid) neighbors[edges] = nullptr;
-
-    // Set neighbors[UP];
-    if (cell->y > 0)
-        cell->neighbors[UP] = this->getCellFor(cell->x, cell->y - 1);
-    else
-        cell->neighbors[UP] = nullptr;
-
-    // Set neighbors[DOWN];
-    if (cell->y < this->height - 1)
-        cell->neighbors[DOWN] = this->getCellFor(cell->x, cell->y + 1);
-    else
-        cell->neighbors[DOWN] = nullptr;
-
-    // Set neighbors[LEFT];
-    if (cell->x > 0)
-        cell->neighbors[LEFT] = this->getCellFor(cell->x - 1, cell->y);
-    else
-        cell->neighbors[LEFT] = nullptr;
-
-    // Set neighbors[RIGHT];
-    if (cell->x < this->width - 1)
-        cell->neighbors[RIGHT] = this->getCellFor(cell->x + 1, cell->y);
-    else
-        cell->neighbors[RIGHT] = nullptr;
-
-    // Set neighbors[UP_LEFT];
-    if (cell->neighbors[UP] && cell->neighbors[LEFT])
-        cell->neighbors[UP_LEFT] = this->getCellFor(cell->x - 1, cell->y - 1);
-    else
-        cell->neighbors[UP_LEFT] = nullptr;
-
-    // Set neighbors[UP_RIGHT];
-    if (cell->neighbors[UP] && cell->neighbors[RIGHT])
-        cell->neighbors[UP_RIGHT] = this->getCellFor(cell->x + 1, cell->y - 1);
-    else
-        cell->neighbors[UP_RIGHT] = nullptr;
-
-    // Set neighbors[DOWN_LEFT];
-    if (cell->neighbors[DOWN] && cell->neighbors[LEFT])
-        cell->neighbors[DOWN_LEFT] = this->getCellFor(cell->x - 1, cell->y + 1);
-    else
-        cell->neighbors[DOWN_LEFT] = nullptr;
-
-    // Set neighbors[DOWN_RIGHT];
-    if (cell->neighbors[DOWN] && cell->neighbors[RIGHT])
-        cell->neighbors[DOWN_RIGHT] = this->getCellFor(cell->x + 1, cell->y + 1);
-    else
-        cell->neighbors[DOWN_RIGHT] = nullptr;
-}
-
+/**
+ * @brief Set the neighbors of all cells.
+ * 
+ */
 void Table::setNeighbors() const {
     CellSPtr cell = this->table;
     while (cell) {
@@ -387,22 +325,12 @@ void Table::setNeighbors() const {
     cell = nullptr;
 }
 
-void Table::setNeighbors(const int &x, const int &y) const {
-    CellSPtr cell = this->getCellFor(x, y);
-    this->setNeighbors(cell);
-    cell = nullptr;
-}
-
-void Table::setNeighborsFast() const {
-    CellSPtr cell = this->table;
-    while (cell) {
-        this->setNeighborsFast(cell);
-        cell = cell->next;
-    }
-    cell = nullptr;
-}
-
-void Table::setNeighborsFast(const CellSPtr &cell) const {
+/**
+ * @brief Set the neighbors of the given cell.
+ * 
+ * @param cell The cell to set the neighbors of.
+ */
+void Table::setNeighbors(const CellSPtr &cell) const {
     // Neighbors:
         // neighbors[UP] = x, y - 1;
         // neighbors[DOWN] = x, y + 1;
