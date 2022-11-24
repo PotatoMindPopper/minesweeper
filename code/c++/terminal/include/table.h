@@ -32,7 +32,6 @@ class Table {
         bool openNeighbors{false};  // Set in propagate / processMenu
 
         int time{UNDEFINED_INT};        // Time in seconds
-        int mines{UNDEFINED_INT};       // Number of mines
         int flags{UNDEFINED_INT};       // Number of flags placed
         int width{UNDEFINED_INT};       // Number of columns
         int height{UNDEFINED_INT};      // Number of rows
@@ -40,6 +39,8 @@ class Table {
         int min_mines{UNDEFINED_INT};   // Minimum number of mines
         int max_mines{UNDEFINED_INT};   // Maximum number of mines
         int highscore{UNDEFINED_INT};   // Highscore
+        int totalMines{UNDEFINED_INT};  // Number of mines in the table
+        int totalFlags{UNDEFINED_INT};  // Number of flags to be placed
 
         float percentage{UNDEFINED_INT};    // Percentage of mines
 
@@ -55,6 +56,7 @@ class Table {
 
         void createGrid();
         void placeMines() const;
+        void setNeighbors(const CellSPtr &cell) const;
         void set_mines_limit();
         void set_mines(const int &input);
 

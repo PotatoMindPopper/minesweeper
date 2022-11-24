@@ -74,12 +74,14 @@ TableUPtr Table::shallowCopy() const {
     copy->width = this->width;
     copy->min_mines = this->min_mines;
     copy->max_mines = this->max_mines;
-    copy->mines = this->mines;
+    copy->totalMines = this->totalMines;
     copy->flags = this->flags;
     copy->opened = this->opened;
     copy->highscore = this->highscore;
     copy->time = this->time;
     copy->percentage = this->percentage;
+    copy->totalMines = this->totalMines;
+    copy->totalFlags = this->totalFlags;
     copy->table = this->copyTable();
     return copy;
 }
@@ -103,12 +105,14 @@ TableSPtr Table::deepCopy() const {
     copy->width = this->width;
     copy->min_mines = this->min_mines;
     copy->max_mines = this->max_mines;
-    copy->mines = this->mines;
+    copy->totalMines = this->totalMines;
     copy->flags = this->flags;
     copy->opened = this->opened;
     copy->highscore = this->highscore;
     copy->time = this->time;
     copy->percentage = this->percentage;
+    copy->totalMines = this->totalMines;
+    copy->totalFlags = this->totalFlags;
     copy->table = this->copyTable();
     return copy;
 }
@@ -240,8 +244,8 @@ void Table::newGame() {
 
 
 
-    this->mines = (int) round((float)this->percentage * (float)(this->height + 1) * (float)(this->width + 1) / 100.0f);
-    this->flags = this->mines;
+    this->totalMines = (int) round((float)this->percentage * (float)(this->height + 1) * (float)(this->width + 1) / 100.0f);
+    this->totalFlags = this->totalMines;
     this->opened = 0;
 
 
@@ -256,112 +260,123 @@ void Table::newGame() {
  * Then link all cell->neighbors pointers.
  */
 void Table::createGrid() {
+    // Grid is from 0 - (height - 1) and 0 - (width - 1);
+    // This is because we start from 0 and not 1.
+
+    // Rules for the linking of the cells;
+    // Next:
+        // if x == width, then next = first cell of next row;
+        // else next = next cell;
+    // Prev:
+        // if x == 0, then prev = last cell of previous row;
+        // else prev = previous cell;
+
     // Create the first cell;
     this->table = std::make_shared<Cell>();
     this->table->x = 0;
     this->table->y = 0;
+    CellSPtr curr_walker = this->table;
+    CellSPtr prev_walker = this->table;
 
-    // Pointer next is the neighbor to the right
-    // If end of row is reached, next is beginning of next row.
-    // Pointer prev is the neighbor to the left
-    // If beginning of row is reached, prev is end of previous row.
-    // Pointer neighbors is the neighbor in the given direction.
-    // 0: up
-    // 1: up_right
-    // 2: right
-    // 3: down_right
-    // 4: down
-    // 5: down_left
-    // 6: left
-    // 7: up_left
+    // Create the rest of the cells;
+    for (int h = 0; h < this->height; h++) {
+        // All next rows have curr_walker->prev = last cell of previous row;
+        // All next rows have prev_walker->next = first cell of next row;
+        if (h > 0) {
+            prev_walker = curr_walker; // save last cell of previous row;
+            curr_walker = std::make_shared<Cell>();
+            prev_walker->next = curr_walker;
+            curr_walker->prev = prev_walker;
+            curr_walker->x = 0;
+            curr_walker->y = h;
+        }
 
-    // Create the rest of the grid;
-    CellSPtr cell = this->table;
-    for (int y = 0; y <= this->height; y++) {
-        for (int x = 0; x <= this->width; x++) {
-            if (x == 0 && y == 0)
-                continue;
-            else if (x == 0) {
-                cell->next = std::make_shared<Cell>();
-                cell->next->x = x;
-                cell->next->y = y;
-                cell->next->prev = cell;
-                cell = cell->next;
-            } else {
-                cell->next = std::make_shared<Cell>();
-                cell->next->x = x;
-                cell->next->y = y;
-                cell->next->prev = cell;
-                cell->next->neighbors[LEFT] = cell;
-                cell->neighbors[RIGHT] = cell->next;
-                cell = cell->next;
-            }
+        // Create the rest of the cells in the row;
+        for (int w = 1; w < this->width; w++) {
+            prev_walker = curr_walker;
+            curr_walker = std::make_shared<Cell>();
+            prev_walker->next = curr_walker;
+            curr_walker->prev = prev_walker;
+            curr_walker->x = w;
+            curr_walker->y = h;
         }
     }
 
     // Link all neighbors;
-    // The neighbors are at this stage only linked by the next and prev pointers.
-    // Now start with linking the neighbors[8] array of the grid.
-    // Do this by walking all the cells and using the this->getCellWhile(x,y) function.
-    cell = this->table;
+    CellSPtr cell = this->table;
     while (cell) {
-        if (cell->x == 0 && cell->y == 0) {
-            cell->neighbors[RIGHT] = cell->next;
-            cell->neighbors[DOWN] = cell->next->next;
-            cell->neighbors[DOWN_RIGHT] = cell->next->next->next;
-        } else if (cell->x == 0 && cell->y == this->height) {
-            cell->neighbors[UP] = cell->prev->prev;
-            cell->neighbors[UP_RIGHT] = cell->prev->prev->prev;
-            cell->neighbors[RIGHT] = cell->prev;
-        } else if (cell->x == this->width && cell->y == 0) {
-            cell->neighbors[DOWN] = cell->next->next;
-            cell->neighbors[DOWN_LEFT] = cell->next->next->next;
-            cell->neighbors[LEFT] = cell->next;
-        } else if (cell->x == this->width && cell->y == this->height) {
-            cell->neighbors[UP] = cell->prev->prev;
-            cell->neighbors[UP_LEFT] = cell->prev->prev->prev;
-            cell->neighbors[LEFT] = cell->prev;
-        } else if (cell->x == 0) {
-            cell->neighbors[UP] = cell->prev->prev;
-            cell->neighbors[UP_RIGHT] = cell->prev->prev->prev;
-            cell->neighbors[RIGHT] = cell->prev;
-            cell->neighbors[DOWN] = cell->next->next;
-            cell->neighbors[DOWN_RIGHT] = cell->next->next->next;
-        } else if (cell->x == this->width) {
-            cell->neighbors[UP] = cell->prev->prev;
-            cell->neighbors[UP_LEFT] = cell->prev->prev->prev;
-            cell->neighbors[LEFT] = cell->prev;
-            cell->neighbors[DOWN] = cell->next->next;
-            cell->neighbors[DOWN_LEFT] = cell->next->next->next;
-        } else if (cell->y == 0) {
-            cell->neighbors[RIGHT] = cell->next;
-            cell->neighbors[DOWN] = cell->next->next;
-            cell->neighbors[DOWN_RIGHT] = cell->next->next->next;
-            cell->neighbors[DOWN_LEFT];
-            cell->neighbors[LEFT] = cell->prev;
-        } else if (cell->y == this->height) {
-            cell->neighbors[UP] = cell->prev->prev;
-            cell->neighbors[UP_RIGHT] = cell->prev->prev->prev;
-            cell->neighbors[RIGHT] = cell->prev;
-            cell->neighbors[UP_LEFT] = cell->prev->prev->prev->prev;
-            cell->neighbors[LEFT] = cell->prev->prev->prev->prev->prev;
-        } else {
-            cell->neighbors[UP] = cell->prev->prev;
-            cell->neighbors[UP_RIGHT] = cell->prev->prev->prev;
-            cell->neighbors[RIGHT] = cell->prev;
-            cell->neighbors[DOWN] = cell->next->next;
-            cell->neighbors[DOWN_RIGHT] = cell->next->next->next;
-            cell->neighbors[DOWN_LEFT] = cell->next->next->next->next;
-            cell->neighbors[LEFT] = cell->next;
-            cell->neighbors[UP_LEFT] = cell->prev->prev->prev->prev;
-        }
+        this->setNeighbors(cell);
         cell = cell->next;
     }
-    
 
-
-    // Set the mines;
+    // Set mines and numbers;
     this->placeMines();
+
+    // Reset the all local cell pointers;
+    cell = nullptr;
+    curr_walker = nullptr;
+    prev_walker = nullptr;
+}
+
+void Table::setNeighbors(const CellSPtr &cell) const {
+    // Neighbors:
+        // neighbors[UP] = x, y - 1;
+        // neighbors[DOWN] = x, y + 1;
+        // neighbors[LEFT] = prev;
+        // neighbors[RIGHT] = next;
+        // neighbors[UP_LEFT] = neighbors[UP]->neighbors[LEFT];
+        // neighbors[UP_RIGHT] = neighbors[UP]->neighbors[RIGHT];
+        // neighbors[DOWN_LEFT] = neighbors[DOWN]->neighbors[LEFT];
+        // neighbors[DOWN_RIGHT] = neighbors[DOWN]->neighbors[RIGHT];
+        // if (at the edge of the grid) neighbors[edges] = nullptr;
+
+    // Set neighbors[UP];
+    if (cell->y > 0)
+        cell->neighbors[UP] = this->getCellWhile(cell->x, cell->y - 1);
+    else
+        cell->neighbors[UP] = nullptr;
+
+    // Set neighbors[DOWN];
+    if (cell->y < this->height)
+        cell->neighbors[DOWN] = this->getCellWhile(cell->x, cell->y + 1);
+    else
+        cell->neighbors[DOWN] = nullptr;
+
+    // Set neighbors[LEFT];
+    if (cell->x > 0)
+        cell->neighbors[LEFT] = this->getCellWhile(cell->x - 1, cell->y);
+    else
+        cell->neighbors[LEFT] = nullptr;
+
+    // Set neighbors[RIGHT];
+    if (cell->x < this->width)
+        cell->neighbors[RIGHT] = this->getCellWhile(cell->x + 1, cell->y);
+    else
+        cell->neighbors[RIGHT] = nullptr;
+
+    // Set neighbors[UP_LEFT];
+    if (cell->neighbors[UP] && cell->neighbors[LEFT])
+        cell->neighbors[UP_LEFT] = this->getCellWhile(cell->x - 1, cell->y - 1);
+    else
+        cell->neighbors[UP_LEFT] = nullptr;
+
+    // Set neighbors[UP_RIGHT];
+    if (cell->neighbors[UP] && cell->neighbors[RIGHT])
+        cell->neighbors[UP_RIGHT] = this->getCellWhile(cell->x + 1, cell->y - 1);
+    else
+        cell->neighbors[UP_RIGHT] = nullptr;
+
+    // Set neighbors[DOWN_LEFT];
+    if (cell->neighbors[DOWN] && cell->neighbors[LEFT])
+        cell->neighbors[DOWN_LEFT] = this->getCellWhile(cell->x - 1, cell->y + 1);
+    else
+        cell->neighbors[DOWN_LEFT] = nullptr;
+
+    // Set neighbors[DOWN_RIGHT];
+    if (cell->neighbors[DOWN] && cell->neighbors[RIGHT])
+        cell->neighbors[DOWN_RIGHT] = this->getCellWhile(cell->x + 1, cell->y + 1);
+    else
+        cell->neighbors[DOWN_RIGHT] = nullptr;
 }
 
 /**
@@ -372,7 +387,7 @@ void Table::createGrid() {
 void Table::placeMines() const {
     // Get the number of mines;
     // This is updated every time a new game is started;
-    int mines = this->mines;
+    int mines = this->totalMines;
 
     // Place the mines;
     CellSPtr cell = this->table;
@@ -397,4 +412,7 @@ void Table::placeMines() const {
         }
         cell = cell->next;
     }
+
+    // Reset cell;
+    cell = nullptr;
 }
