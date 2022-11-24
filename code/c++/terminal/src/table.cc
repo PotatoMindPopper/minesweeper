@@ -261,53 +261,43 @@ void Table::createGrid() {
     this->table->x = 0;
     this->table->y = 0;
 
-    // Create the first row;
+    // Create the rest of the cells;
     CellSPtr cell = this->table;
-    for (int i = 1; i <= this->width; i++) {
-        cell->neighbors[RIGHT] = std::make_shared<Cell>();
-        cell->neighbors[RIGHT]->x = i;
-        cell->neighbors[RIGHT]->y = 0;
-        cell->neighbors[RIGHT]->prev = cell;
-        cell = cell->neighbors[RIGHT];
-    }
-
-    // Create the rest of the rows;
-    CellSPtr row = this->table;
-    for (int i = 1; i <= this->height; i++) {
-        row->neighbors[DOWN] = std::make_shared<Cell>();
-        row->neighbors[DOWN]->x = 0;
-        row->neighbors[DOWN]->y = i;
-        row->neighbors[DOWN]->prev = row;
-        cell = row->neighbors[DOWN];
-        for (int j = 1; j <= this->width; j++) {
-            cell->neighbors[RIGHT] = std::make_shared<Cell>();
-            cell->neighbors[RIGHT]->x = j;
-            cell->neighbors[RIGHT]->y = i;
-            cell->neighbors[RIGHT]->prev = cell;
-            cell = cell->neighbors[RIGHT];
+    for (int i = 0; i < this->height; i++) {
+        for (int j = 0; j < this->width; j++) {
+            cell->next = std::make_shared<Cell>();
+            cell->next->prev = cell;
+            cell = cell->next;
+            cell->x = j + 1;
+            cell->y = i;
         }
-        row = row->neighbors[DOWN];
-    }
-
-    // Set the neighbors;
-    row = this->table;
-    while (row) {
-        cell = row;
-        while (cell) {
-            cell->neighbors[UP] = cell->prev;
-            cell->neighbors[DOWN] = cell->neighbors[DOWN] ? cell->neighbors[DOWN]->prev : nullptr;
-            cell->neighbors[LEFT] = cell->prev ? cell->prev->neighbors[RIGHT] : nullptr;
-            cell->neighbors[RIGHT] = cell->neighbors[RIGHT] ? cell->neighbors[RIGHT]->prev : nullptr;
-            cell->neighbors[UP_LEFT] = cell->prev ? cell->prev->neighbors[UP_RIGHT] : nullptr;
-            cell->neighbors[UP_RIGHT] = cell->prev ? cell->prev->neighbors[DOWN_RIGHT] : nullptr;
-            cell->neighbors[DOWN_LEFT] = cell->neighbors[DOWN] ? cell->neighbors[DOWN]->neighbors[UP_LEFT] : nullptr;
-            cell->neighbors[DOWN_RIGHT] = cell->neighbors[DOWN] ? cell->neighbors[DOWN]->neighbors[UP_RIGHT] : nullptr;
-            cell = cell->neighbors[RIGHT];
+        if (i < this->height - 1) {
+            cell->next = std::make_shared<Cell>();
+            cell->next->prev = cell;
+            cell = cell->next;
+            cell->x = 0;
+            cell->y = i + 1;
         }
-        row = row->neighbors[DOWN];
     }
 
-    // Place the mines;
+    // Link all cell->neighbors pointers;
+    // Do this using a for loop, with [8] directions for all the neighbors and [2] directions, being x and y;
+    cell = this->table;
+    for (int i = 0; i < this->height + 1; i++) {
+        for (int j = 0; j < this->width + 1; j++) {
+            // Link all the neighbors;
+            for (int k = 0; k < 8; k++) {
+                int x = cell->x + (k % 3) - 1;
+                int y = cell->y + (k / 3) - 1;
+                if (x >= 0 && x <= this->width && y >= 0 && y <= this->height)
+                    cell->neighbors[k] = this->getCellFor(x, y);
+            }
+            // Move to the next cell;
+            cell = cell->next;
+        }
+    }
+
+    // Set the mines;
     this->placeMines();
 }
 
