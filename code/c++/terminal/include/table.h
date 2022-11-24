@@ -53,6 +53,8 @@ class Table {
         int validWidth(const int &width);
         int validHeight(const int &height);
 
+        void createGrid();
+        void placeMines() const;
         void set_mines_limit();
         void set_mines(const int &input);
 

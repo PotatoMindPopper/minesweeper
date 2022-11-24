@@ -3,17 +3,19 @@
 
 #include <vector>
 
-char processChoice(std::vector<char> &choices);
-void processChoice(std::vector<char> &choices, char &choice);
+int shutdown();
+int randomNumber(const int &min, const int &max);
 
 void clearScreen();
 void pressEnter();
 void loadingDots();
 void loadingDots(const int &n);
+void processChoice(std::vector<char> &choices, char &choice);
 
+char randomNumber();
+char randomUpperLetter();
+char randomLowerLetter();
 char* randomString(const int &n);
-
-int shutdown();
-
+char processChoice(std::vector<char> &choices);
 
 #endif // __STANDARD_H__

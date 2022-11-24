@@ -140,6 +140,7 @@ void loadingDots(const int &n) {
  * @return char The randomly generated number.
  */
 char randomNumber() {
+    srand(time(NULL));
     return rand() % 10 + 48;
 }
 
@@ -151,6 +152,7 @@ char randomNumber() {
  * @return int The randomly generated number.
  */
 int randomNumber(const int &min, const int &max) {
+    srand(time(NULL));
     return rand() % (max - min + 1) + min;
 }
 
@@ -160,6 +162,7 @@ int randomNumber(const int &min, const int &max) {
  * @return char The randomly generated letter.
  */
 char randomUpperLetter() {
+    srand(time(NULL));
     return rand() % 26 + 65;
 }
 
@@ -169,6 +172,7 @@ char randomUpperLetter() {
  * @return char The randomly generated letter.
  */
 char randomLowerLetter() {
+    srand(time(NULL));
     return rand() % 26 + 97;
 }
 

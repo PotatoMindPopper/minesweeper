@@ -13,6 +13,7 @@ struct Cell {
     // Coordinates, based on the grid of the table.
     int x{UNDEFINED_INT};
     int y{UNDEFINED_INT};
+    int neighbors_mines{UNDEFINED_INT};
 
     // Neighbor to the right
     // If end of row is reached, next is beginning of next row.
