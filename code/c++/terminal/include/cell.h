@@ -1,6 +1,7 @@
 #ifndef __CELL_H__
 #define __CELL_H__
 
+#include "constants_with_includes.h"
 #include <memory>
 
 typedef std::shared_ptr<class Cell> CellSPtr;

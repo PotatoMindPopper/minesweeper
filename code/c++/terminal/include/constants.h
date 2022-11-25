@@ -15,7 +15,6 @@ const int DEFAULT_PERCENTAGE{20};
 
 const int UNDEFINED_INT{-1};
 const char UNDEFINED_CHAR{'\0'};
-const std::nullptr_t UNDEFINED_PTR{nullptr};
 
 const int UP{0};
 const int UP_RIGHT{1};
