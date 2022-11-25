@@ -31,7 +31,7 @@ class Menu {
     private:
         Choices choices{Choices::Type::Undefined, "", '\0'};
         TableSPtr currentTable{nullptr};
-        std::stack<TableSPtr> tables{};
+        std::stack<TableSPtr> savedTables{};
 
         void printMainMenu();
         void processMainMenu();
@@ -41,6 +41,8 @@ class Menu {
         void resetChoices();
         void gameMenu();
         void optionsMenu();
+        void saveState();
+        void loadState();
 
         char debugMenu();
 

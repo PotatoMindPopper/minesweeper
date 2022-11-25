@@ -14,10 +14,23 @@ class Table {
         Table();
         ~Table();
 
+        Table* operator=(Table &other);
+        Table* operator=(Table *other);
+        Table& operator=(Table &&other);
+        Table& operator=(const Table &other);
+        Table* operator=(const Table *other);
+        TableSPtr& operator=(TableSPtr &&other);
+        TableUPtr& operator=(TableUPtr &&other);
+        TableSPtr& operator=(const TableSPtr &other);
+        TableUPtr& operator=(const TableUPtr &other);
+
         void newGame();
         void options();
         void playGame();
+        void propagate();  // Set values ready after user selects menu option.
+        void clockpulse(); // Update / Run for the selected option.
 
+        Table* copy() const;
         TableSPtr deepCopy() const;
         TableUPtr shallowCopy() const;
 
@@ -51,6 +64,63 @@ class Table {
         TimePoint currentTime{UNDEFINED_TIME};  // Current time
 
         Duration duration{UNDEFINED_DURATION};  // Duration of the game
+
+
+        // TODO: Find methode for game status, so that it can be easily 
+        //          given to a one-liner function. This is needed for the menu,
+        //          as this is outside the class.
+        enum class GameState {
+            UNDEFINED,
+            NEW_GAME,
+            PLAY_GAME,
+            OPTIONS,
+            EXIT
+        };
+        GameState state = GameState::UNDEFINED;
+
+        struct Status {
+            bool gameWon{false};        // True if the game has been won.
+            bool showCell{false};       // Use as clockpulse; set in propagate / processMenu
+            bool markMine{false};       // Set in propagate / processMenu
+            bool gameSetup{false};      // Set in newGame
+            bool gameEnded{false};      // Set in propagate / processMenu
+            bool gameStarted{false};    // Set in propagate / processMenu
+            bool showNeighbors{false};  // Set in propagate / processMenu
+            bool openNeighbors{false};  // Set in propagate / processMenu
+        };
+
+        struct GameStatus {
+            enum class GameState {
+                UNDEFINED,
+                NEW_GAME,
+                PLAY_GAME,
+                OPTIONS,
+                EXIT
+            } state{GameState::UNDEFINED};
+            enum Type {
+                UNDEFINED,
+                GAME_WON,
+                SHOW_CELL,
+                MARK_MINE,
+                GAME_SETUP,
+                GAME_ENDED,
+                GAME_STARTED,
+                SHOW_NEIGHBORS,
+                OPEN_NEIGHBORS
+            } type{UNDEFINED};
+            bool value{false};
+        } status{GameStatus::GameState::UNDEFINED, GameStatus::UNDEFINED, false};
+
+        struct Status1 {
+            enum Type {
+                Undefined,
+                Playing,
+                Won,
+                Lost
+            } type{Undefined};
+            std::string str{""};
+        } status1{Status1::Type::Undefined, ""};
+
 
         float percent_mines() const;
         float validPercentage(const float &percentage);

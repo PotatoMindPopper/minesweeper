@@ -3,6 +3,9 @@
 #include <cmath>
 #include <iostream>
 
+// ----------------------------------------------------------------
+// -- Constructors and Destructors --
+
 /**
  * @brief Construct a new Table:: Table object
  * 
@@ -18,6 +21,9 @@ Table::Table() {
 Table::~Table() {
     table = UNDEFINED_PTR;
 }
+
+// ----------------------------------------------------------------
+// -- User Input --
 
 /**
  * @brief Get the user input for the height of the table
@@ -62,6 +68,85 @@ int Table::getWidth() {
         std::cout << "Enter a new width: ";
         std::cin >> width;
     }
+}
+
+/**
+ * @brief Get the percentage of mines.
+ * 
+ * @return int The percentage of mines.
+ */
+// TODO: Complete this function;
+int Table::getPercentage() {
+    // TODO: Pas deze line nog aan naar min en max values;
+    std::cout << "Enter the percentage of mines (1 - 99): ";
+    int percentage;
+    std::cin >> percentage;
+    while (percentage < MIN_PERCENTAGE || percentage > MAX_PERCENTAGE) {
+        std::cout << "Invalid percentage. Enter a percentage between 1 and 99: ";
+        std::cin >> percentage;
+    }
+
+
+
+
+    int iPerc{UNDEFINED_INT};
+    std::cout << "Enter the percentage of mines: ";
+    std::cin >> iPerc;
+
+
+
+    // Check if iPerc is valid, within the grid bounds;
+
+    // If precent_mines is already within the given input and predetermined small value.
+    if (!(fabs(this->percentage - iPerc) <= 0.5f)) {
+        int gridSize = (this->height + 1) * (this->width + 1);
+        int tempMines = (int) round((float) iPerc / 100.0f * gridSize);
+        if (tempMines >= this->min_mines && tempMines <= this->max_mines) {
+            this->percentage = iPerc;
+        } else {
+            this->percentage = DEFAULT_PERCENTAGE;
+            std::cout << "Invalid percentage of mines. Using default value of " << this->percentage << "%." << std::endl;
+        }
+    }
+
+
+
+
+    return percentage;
+}
+
+// ----------------------------------------------------------------
+// -- COPY --
+
+/**
+ * @brief Make a copy of the table handler.
+ * 
+ * @return Table* The copy of the table handler.
+ */
+Table* Table::copy() const {
+    Table* copy = new Table();
+    copy->gameSetup = this->gameSetup;
+    copy->gameStarted = this->gameStarted;
+    copy->gameEnded = this->gameEnded;
+    copy->gameWon = this->gameWon;
+    copy->showCell = this->showCell;
+    copy->markMine = this->markMine;
+    copy->showNeighbors = this->showNeighbors;
+    copy->openNeighbors = this->openNeighbors;
+    copy->height = this->height;
+    copy->width = this->width;
+    copy->min_mines = this->min_mines;
+    copy->max_mines = this->max_mines;
+    copy->totalMines = this->totalMines;
+    copy->flags = this->flags;
+    copy->opened = this->opened;
+    copy->highscore = this->highscore;
+    copy->time = this->time;
+    copy->percentage = this->percentage;
+    copy->totalMines = this->totalMines;
+    copy->totalFlags = this->totalFlags;
+    copy->table = this->copyTable();
+    return copy;
 }
 
 /**
@@ -160,6 +245,86 @@ CellSPtr Table::copyCell(const CellSPtr &cell) const {
  */ 
 CellSPtr Table::copyTable() const { return this->copyCell(this->table); }
 
+// ----------------------------------------------------------------
+// -- GETTERS --
+
+// ----------------------------------------------------------------
+// -- OPERATORS --
+
+/**
+ * @brief operator= overload for the Table class.
+ * 
+ * @param other The table to copy.
+ * @return Table& The copied table.
+ */
+Table& Table::operator=(const Table &other) { return *other.copy(); }
+
+/**
+ * @brief operator= overload for the Table class.
+ * 
+ * @param other The table to copy.
+ * @return Table& The copied table.
+ */
+Table& Table::operator=(Table &&other) { return *other.copy(); }
+
+/**
+ * @brief operator= overload for the Table class.
+ * 
+ * @param other The table to copy.
+ * @return Table* The copied table.
+ */
+Table* Table::operator=(const Table *other) { return other->copy(); }
+
+/**
+ * @brief operator= overload for the Table class.
+ * 
+ * @param other The table to copy.
+ * @return Table* The copied table.
+ */
+Table* Table::operator=(Table *other) { return other->copy(); }
+
+/**
+ * @brief operator= overload for the Table class.
+ * 
+ * @param other The table to copy.
+ * @return TableSPtr& The copied table.
+ */
+TableSPtr& Table::operator=(const TableSPtr &other) {
+    return other->deepCopy();
+}
+
+/**
+ * @brief operator= overload for the Table class.
+ * 
+ * @param other The table to copy.
+ * @return TableSPtr& The copied table.
+ */
+TableSPtr& Table::operator=(TableSPtr &&other) { return other->deepCopy(); }
+
+/**
+ * @brief operator= overload for the Table class.
+ * 
+ * @param other The table to copy.
+ * @return TableUPtr& The copied table.
+ */
+TableUPtr& Table::operator=(const TableUPtr &other) {
+    return other->shallowCopy();
+}
+
+/**
+ * @brief operator= overload for the Table class.
+ * 
+ * @param other The table to copy.
+ * @return TableUPtr& The copied table.
+ */
+TableUPtr& Table::operator=(TableUPtr &&other) { return other->shallowCopy(); }
+
+// ----------------------------------------------------------------
+// -- SETTERS --
+
+// ----------------------------------------------------------------
+// -- Search --
+
 /**
  * @brief Get the cell at the given coordinates using while loops.
  * 
@@ -221,6 +386,9 @@ CellSPtr Table::getCellFor(const int &x, const int &y) const {
     }
     return nullptr;
 }
+
+// ----------------------------------------------------------------
+// -- Setup --
 
 /**
  * @brief Place the mines on the grid.
@@ -439,54 +607,14 @@ void Table::newGame() {
     this->playGame();
 }
 
-/**
- * @brief Get the percentage of mines.
- * 
- * @return int The percentage of mines.
- */
-int Table::getPercentage() {
-    // TODO: Pas deze line nog aan naar min en max values;
-    std::cout << "Enter the percentage of mines (1 - 99): ";
-    int percentage;
-    std::cin >> percentage;
-    while (percentage < MIN_PERCENTAGE || percentage > MAX_PERCENTAGE) {
-        std::cout << "Invalid percentage. Enter a percentage between 1 and 99: ";
-        std::cin >> percentage;
-    }
-
-
-
-
-    int iPerc{UNDEFINED_INT};
-    std::cout << "Enter the percentage of mines: ";
-    std::cin >> iPerc;
-
-
-
-    // Check if iPerc is valid, within the grid bounds;
-
-    // If precent_mines is already within the given input and predetermined small value.
-    if (!(fabs(this->percentage - iPerc) <= 0.5f)) {
-        int gridSize = (this->height + 1) * (this->width + 1);
-        int tempMines = (int) round((float) iPerc / 100.0f * gridSize);
-        if (tempMines >= this->min_mines && tempMines <= this->max_mines) {
-            this->percentage = iPerc;
-        } else {
-            this->percentage = DEFAULT_PERCENTAGE;
-            std::cout << "Invalid percentage of mines. Using default value of " << this->percentage << "%." << std::endl;
-        }
-    }
-
-
-
-
-    return percentage;
-}
+// ----------------------------------------------------------------
+// -- Game loop --
 
 /**
  * @brief Play the game.
  * 
  */
+// TODO: Complete this function;
 void Table::playGame() {
     // Check if the game is setup;
     if (!this->gameSetup) {

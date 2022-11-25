@@ -9,8 +9,8 @@ Menu::Menu() {
 }
 
 Menu::~Menu() {
-    currentTable = nullptr;
-    tables = std::stack<TableSPtr>();
+    this->currentTable = nullptr;
+    this->savedTables = std::stack<TableSPtr>();
 }
 
 /**
@@ -126,7 +126,7 @@ void Menu::getChoice() {
 
     // std::cin.getline(this->choices.str, 2);
 
-    std::getline(std::cin, choices.str);
+    std::getline(std::cin, this->choices.str);
 }
 
 /**
@@ -200,6 +200,31 @@ void Menu::processMainMenu() {
  */
 void Menu::resetChoices() {
     this->choices.type = Choices::Type::Undefined;
+}
+
+/**
+ * @brief Saves the current state of the game.
+ * 
+ * This is done by saving the current table onto the stack.
+ */
+void Menu::saveState() {
+    TableSPtr table = this->currentTable;
+    this->savedTables.push(table);
+    // this->savedTables.emplace(this->currentTable->deepCopy());
+}
+
+/**
+ * @brief Loads the last saved state of the game.
+ * 
+ * This is done by loading the last table from the stack.
+ */
+void Menu::loadState() {
+    if (!this->savedTables.empty()) {
+        this->currentTable = this->savedTables.top();
+        this->savedTables.pop();
+    } else {
+        std::cout << "No saved state found!" << std::endl;
+    }
 }
 
 /**
