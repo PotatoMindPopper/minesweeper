@@ -1,5 +1,6 @@
 #include "standard.h"
 #include "sleep.h"
+#include "random.h"
 #include <iostream>
 #include <limits>
 
@@ -135,6 +136,18 @@ void loadingDots(const int &n) {
 }
 
 /**
+ * @brief Shutdown the program.
+ * 
+ * @return int The exit code.
+ */
+int shutdown() {
+    clearScreen();
+    std::cout << "Shutting down... ";
+    std::cout << "Goodbye!" << std::endl;
+    return 0;
+}
+
+/**
  * @brief Randomly generate a number between 0 and 10.
  * 
  * @return char The randomly generated number.
@@ -142,18 +155,6 @@ void loadingDots(const int &n) {
 char randomNumber() {
     srand(time(NULL));
     return rand() % 10 + 48;
-}
-
-/**
- * @brief Randomly generate a number between min and max.
- * 
- * @param min The minimum number to generate.
- * @param max The maximum number to generate.
- * @return int The randomly generated number.
- */
-int randomNumber(const int &min, const int &max) {
-    srand(time(NULL));
-    return rand() % (max - min + 1) + min;
 }
 
 /**
@@ -201,14 +202,27 @@ char* randomString(const int &n) {
 }
 
 /**
- * @brief Shutdown the program.
+ * @brief Randomly generate a number between min and max.
  * 
- * @return int The exit code.
+ * Uses the rand() and srand(time()) functions.
+ * 
+ * @param min The minimum number to generate.
+ * @param max The maximum number to generate.
+ * @return int The randomly generated number.
  */
-int shutdown() {
-    clearScreen();
-    std::cout << "Shutting down... ";
-    std::cout << "Goodbye!" << std::endl;
-    return 0;
+int randomNTime(const int &min, const int &max) {
+    randomNumberTime(min, max);
 }
 
+/**
+ * @brief Randomly generate a number between min and max.
+ * 
+ * Uses the C++11 random library.
+ * 
+ * @param min The minimum number to generate.
+ * @param max The maximum number to generate.
+ * @return int The randomly generated number.
+ */
+int randomN(const int &min, const int &max) {
+    randomNumber(min, max);
+}
