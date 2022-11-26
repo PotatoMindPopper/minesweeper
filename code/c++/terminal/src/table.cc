@@ -290,7 +290,8 @@ Table* Table::operator=(Table *other) { return other->copy(); }
  * @return TableSPtr& The copied table.
  */
 TableSPtr& Table::operator=(const TableSPtr &other) {
-    return other->deepCopy();
+    TableSPtr copy = other->deepCopy();
+    return copy;
 }
 
 /**
@@ -299,16 +300,9 @@ TableSPtr& Table::operator=(const TableSPtr &other) {
  * @param other The table to copy.
  * @return TableSPtr& The copied table.
  */
-TableSPtr& Table::operator=(TableSPtr &&other) { return other->deepCopy(); }
-
-/**
- * @brief operator= overload for the Table class.
- * 
- * @param other The table to copy.
- * @return TableUPtr& The copied table.
- */
-TableUPtr& Table::operator=(const TableUPtr &other) {
-    return other->shallowCopy();
+TableSPtr& Table::operator=(TableSPtr &&other) { 
+    TableSPtr copy = other->deepCopy();
+    return copy;
 }
 
 /**
@@ -317,7 +311,21 @@ TableUPtr& Table::operator=(const TableUPtr &other) {
  * @param other The table to copy.
  * @return TableUPtr& The copied table.
  */
-TableUPtr& Table::operator=(TableUPtr &&other) { return other->shallowCopy(); }
+TableUPtr& Table::operator=(const TableUPtr &other) {
+    TableUPtr copy = other->shallowCopy();
+    return copy;
+}
+
+/**
+ * @brief operator= overload for the Table class.
+ * 
+ * @param other The table to copy.
+ * @return TableUPtr& The copied table.
+ */
+TableUPtr& Table::operator=(TableUPtr &&other) {
+    TableUPtr copy = other->shallowCopy();
+    return copy;
+}
 
 // ----------------------------------------------------------------
 // -- SETTERS --
