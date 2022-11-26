@@ -4,8 +4,8 @@
 #include <vector>
 
 int shutdown();
-int randomN(const int &min, const int &max);
 int randomNTime(const int &min, const int &max);
+int randomNumber(const int &min, const int &max);
 
 void clearScreen();
 void pressEnter();

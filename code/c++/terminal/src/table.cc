@@ -404,7 +404,7 @@ void Table::placeMines() const {
     CellSPtr cell = this->table;
     while (cell) {
         if (mines > 0) {
-            if (randomN(0, 1) % 2 == 0) {
+            if (randomNumber(0, 1) % 2 == 0) {
                 cell->mine = true;
                 mines--;
             }

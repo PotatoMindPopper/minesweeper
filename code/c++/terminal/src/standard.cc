@@ -211,7 +211,7 @@ char* randomString(const int &n) {
  * @return int The randomly generated number.
  */
 int randomNTime(const int &min, const int &max) {
-    return randomNumberTime(min, max);
+    return randNT(min, max);
 }
 
 /**
@@ -223,6 +223,6 @@ int randomNTime(const int &min, const int &max) {
  * @param max The maximum number to generate.
  * @return int The randomly generated number.
  */
-int randomN(const int &min, const int &max) {
-    return randomNumber(min, max);
+int randomNumber(const int &min, const int &max) {
+    return randN(min, max);
 }
