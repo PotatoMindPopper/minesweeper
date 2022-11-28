@@ -22,14 +22,14 @@ const char QUESTION{'?'};           // Question mark
 const char EMPTY{' '};              // Empty cell
 const char HIDDEN{'#'};             // Hidden cell
 
-const char UP_KEY{'w'};                 // Up
-const char UP_KEY_1{'i'};             // Up
-const char DOWN_KEY{'s'};               // Down
-const char DOWN_KEY_1{'k'};           // Down
-const char LEFT_KEY{'a'};               // Left
-const char LEFT_KEY_1{'j'};           // Left
-const char RIGHT_KEY{'d'};              // Right
-const char RIGHT_KEY_1{'l'};          // Right
+const char UP_KEY{'w'};             // Up
+const char UP_KEY_1{'i'};           // Up
+const char DOWN_KEY{'s'};           // Down
+const char DOWN_KEY_1{'k'};         // Down
+const char LEFT_KEY{'a'};           // Left
+const char LEFT_KEY_1{'j'};         // Left
+const char RIGHT_KEY{'d'};          // Right
+const char RIGHT_KEY_1{'l'};        // Right
 const char FLAG_KEY{'f'};           // Flag
 const char QUIT_KEY{'q'};           // Quit
 const char QUESTION_KEY{'e'};       // Question mark
