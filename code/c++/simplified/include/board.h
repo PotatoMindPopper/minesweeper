@@ -17,18 +17,18 @@ typedef std::chrono::time_point<std::chrono::system_clock> Time; // Time
  */
 struct Cell {
     // Properties
-    enum Type {
+    enum class Type {
         MINE,       // Mine
         EMPTY,      // Empty cell
         UNDEFINED   // Undefined
-    } type{UNDEFINED};  // Type of the cell
-    enum State {
+    } type{Type::UNDEFINED};    // Type of the cell
+    enum class State {
         HIDDEN,     // Hidden cell
         REVEALED,   // Revealed cell
         FLAG,       // Flag
         QUESTION,   // Question mark
         UNDEFINED   // Undefined
-    } state{UNDEFINED}; // State of the cell
+    } state{State::UNDEFINED};  // State of the cell
     int value{UNDEFINED_INT};   // Value of the cell
 
     // Coordinates
@@ -36,8 +36,10 @@ struct Cell {
     int y{UNDEFINED_INT};  // Y coordinate
 
     // Pointers
+    // List format:
     CellSPtr previous{nullptr};     // Previous cell in the board
     CellSPtr next{nullptr};         // Next cell in the board
+    // Grid format:
     CellSPtr neighbors[8]{nullptr}; // Neighbors of the cell
 };
 
