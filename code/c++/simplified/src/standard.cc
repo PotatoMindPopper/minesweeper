@@ -1,7 +1,7 @@
 #include "standard.h"
 #include <iostream>
 
-int clearScreen(void) {
+void clearScreen() {
     int success = -1;
 
     #if defined(_WIN32) || defined(_WIN64)
@@ -16,6 +16,4 @@ int clearScreen(void) {
         std::cin.get();
         std::cout << "\033[2J\033[1;1H";
     }
-
-    return 0;
 }
