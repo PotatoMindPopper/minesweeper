@@ -44,6 +44,6 @@ const int DOWN_LEFT{5};  // Down left
 const int LEFT{6};       // Left
 const int UP_LEFT{7};    // Up left
 
-const int NEIGHBORS{8}; // Number of neighbors
+const int NEIGHBOURS{8}; // Number of neighbours
 
 #endif // __CONSTANTS_H__

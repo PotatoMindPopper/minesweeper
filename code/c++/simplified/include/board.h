@@ -50,7 +50,13 @@ struct Cell {
         CellSPtr previous{nullptr}; // Previous cell in the board
         CellSPtr next{nullptr};     // Next cell in the board
         // Grid format:
-        CellSPtr neighbors[8]{nullptr}; // Neighbors of the cell
+        CellSPtr neighbours[8]{nullptr}; // Neighbours of the cell
+
+        // Methods
+        CellSPtr copy(const CellSPtr &cell);
+        void reveal();
+        void flag();
+        void question();
 };
 
 /**
@@ -58,20 +64,30 @@ struct Cell {
  */
 class Board {
         // Properties
-        int width{UNDEFINED_INT};           // Width of the board
-        int height{UNDEFINED_INT};          // Height of the board
-        int mines_Total{UNDEFINED_INT};     // Number of mines
-        int mines_Left{UNDEFINED_INT};      // Number of mines left
-        int flags_Total{UNDEFINED_INT};     // Number of flags
-        int flags_Left{UNDEFINED_INT};      // Number of flags left
-        int revealed_Total{UNDEFINED_INT};  // Number of revealed cells
-        int revealed_Left{UNDEFINED_INT};   // Number of revealed cells left
-        int hidden_Total{UNDEFINED_INT};    // Number of hidden cells
-        int hidden_Left{UNDEFINED_INT};     // Number of hidden cells left
-        int cells_Total{UNDEFINED_INT};     // Total number of cells
-        int cells_Left{UNDEFINED_INT};      // Total number of cells left
-        int questions_Total{UNDEFINED_INT}; // Number of question marks
-        int questions_Left{UNDEFINED_INT};  // Number of question marks left
+        int width{UNDEFINED_INT};  // Width of the board (index: 0 to width-1)
+        int height{UNDEFINED_INT}; // Height of the board (index: 0 to height-1)
+
+        // Statistics at initialization
+        struct Total {
+                int mines_Total{UNDEFINED_INT};     // Number of mines
+                int flags_Total{UNDEFINED_INT};     // Number of flags
+                int revealed_Total{UNDEFINED_INT};  // Number of revealed cells
+                int hidden_Total{UNDEFINED_INT};    // Number of hidden cells
+                int cells_Total{UNDEFINED_INT};     // Total number of cells
+                int questions_Total{UNDEFINED_INT}; // Number of question marks
+        } total{UNDEFINED_INT};
+
+        // Statistics during the game
+        struct Left {
+                int mines_Left{UNDEFINED_INT}; // Number of mines left
+                int flags_Left{UNDEFINED_INT}; // Number of flags left
+                int revealed_Left{
+                    UNDEFINED_INT};             // Number of revealed cells left
+                int hidden_Left{UNDEFINED_INT}; // Number of hidden cells left
+                int cells_Left{UNDEFINED_INT};  // Total number of cells left
+                int questions_Left{
+                    UNDEFINED_INT}; // Number of question marks left
+        } left{UNDEFINED_INT};
 
         // Min and max number of mines (based on the board size)
         int min_mines{UNDEFINED_INT};
@@ -97,34 +113,24 @@ class Board {
         Board(); // Default constructor
         Board(const int &width, const int &height,
               const int &percentage);  // Constructor
-        Board(const Board &board);     // Copy constructor
-        Board(Board &&board) noexcept; // Move constructor
+        Board(const BoardUPtr &board); // Copy constructor
+        Board(const BoardSPtr &board); // Copy constructor
 
         // Destructor
         ~Board();
 
         // Operators
-        Board &operator=(const Board &board);     // Copy assignment
-        Board &operator=(Board &&board) noexcept; // Move assignment
-        BoardUPtr operator=(BoardUPtr &board);    // Unique pointer assignment
-        BoardUPtr operator=(BoardUPtr &&board);   // Unique pointer assignment
-        BoardSPtr operator=(BoardSPtr &board);    // Shared pointer assignment
-        BoardSPtr operator=(BoardSPtr &&board);   // Shared pointer assignment
+        template <typename T, typename U>
+        T operator=(const U &board); // Assignment operator
 
         // Copy
-        void copy(const Board &board);            // Copy the board
-        void copy(Board &&board) noexcept;        // Copy the board
-        Board *clone() const;                     // Clone the board
-        BoardSPtr deepCopy() const;               // Deep copy the board
-        BoardUPtr shallowCopy() const;            // Shallow copy the board
+        void copy(const BoardSPtr &board); // Copy the board
+        void copy(const BoardUPtr &board); // Copy the board
+        BoardSPtr deepCopy(const BoardSPtr &board) const;
+        BoardUPtr shallowCopy(const BoardUPtr &board) const;
+        void copyCells(const CellSPtr &head, const CellSPtr &tail,
+                       const CellSPtr &current);  // Copy the cells
         CellSPtr copyCells(const CellSPtr &cell); // Copy the cells
-
-        // Move
-        void move(Board &board);  // Move the board
-        void move(Board &&board); // Move the board
-        Board *steal();           // Steal the board
-        BoardSPtr deepMove();     // Deep move the board
-        BoardUPtr shallowMove();  // Shallow move the board
 
         // Getters
         int getWidth() const;     // Get the width of the board
@@ -138,15 +144,17 @@ class Board {
         int getCells() const;     // Get the number of cells
 
         // Setters
-        void setWidth(const int &width);     // Set the width of the board
-        void setHeight(const int &height);   // Set the height of the board
-        void setPerc(const int &percentage); // Set the percentage of the mines
-        void initialize();                   // Initialize the board
+        void setWidth(const int &width);   // Set the width of the board
+        void setHeight(const int &height); // Set the height of the board
+        void setPerc(const float &perc);   // Set the percentage of the mines
+        void initialize();                 // Initialize the board
 
         // Status
-        bool isPlaying() const; // Check if the game is playing
-        bool isWon() const;     // Check if the game is won
-        bool isLost() const;    // Check if the game is lost
+        bool isPlaying() const;     // Check if the game is playing
+        bool isWon() const;         // Check if the game is won
+        bool isLost() const;        // Check if the game is lost
+        Status getStatus() const;   // Get the status of the game
+        char *getStatusStr() const; // Get the status of the game as a string
 
         // Board
         void create(); // Create the board
@@ -157,8 +165,11 @@ class Board {
         void flag();     // Flag the current cell
         void question(); // Question the current cell
 
-        // Neighbors
-        void revealNeighbors(); // Reveal the neighbors of the current cell
+        // Neighbours
+        void revealAll(); // Reveal all the cells
+        void revealNeighbours(const int &x, const int &y);
+        void
+        revealNeighboursCurrent(); // Reveal the neighbours of the current cell
 
         // Navigation
         void next();   // Go to the next cell
@@ -170,6 +181,12 @@ class Board {
 
         // Print
         void print() const; // Print the board
+
+        // Check
+        void check() const; // Check the board, update the statistics and the
+                            // status
+        bool
+        checkPerc(const float &perc); // Check if given perc is valid board wise
 };
 
 /**
