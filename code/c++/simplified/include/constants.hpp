@@ -59,3 +59,5 @@ const int UP_LEFT{7};               // Up left
 /* Define the number of neighbors of a cell on the board
 */
 const int NEIGHBORS{8};             // Number of neighbors
+
+#endif // __CONSTANTS_HPP__

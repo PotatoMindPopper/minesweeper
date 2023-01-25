@@ -1,5 +1,5 @@
-#include "board.h"
-#include "standard.h"
+#include "board.hpp"
+#include "standard.hpp"
 
 /**
  * @brief Copy the cell.
