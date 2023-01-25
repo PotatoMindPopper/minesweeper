@@ -1,0 +1,7 @@
+# .gitignore
+
+# Directories
+.atom
+.vscode
+
+# End of .gitignore
