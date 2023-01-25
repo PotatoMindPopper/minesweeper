@@ -1,6 +1,6 @@
-#include "constants.h"
-#include "standard.h"
-#include "board.h"
+#include "constants.hpp"
+#include "standard.hpp"
+#include "board.hpp"
 #include <iostream>
 
 int main() {

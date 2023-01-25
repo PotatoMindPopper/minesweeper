@@ -1,7 +1,7 @@
-#ifndef __BOARD_H__
-#define __BOARD_H__
+#ifndef __BOARD_HPP__
+#define __BOARD_HPP__
 
-#include "constants.h"
+#include "constants.hpp"
 #include <memory>
 #include <chrono>
 

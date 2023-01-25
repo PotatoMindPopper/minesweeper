@@ -1,5 +1,5 @@
-#ifndef __CONSTANTS_H__
-#define __CONSTANTS_H__
+#ifndef __CONSTANTS_HPP__
+#define __CONSTANTS_HPP__
 
 const int MAX_WIDTH{30};            // Maximum width of the board
 const int MAX_HEIGHT{30};           // Maximum height of the board
