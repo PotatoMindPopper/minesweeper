@@ -60,5 +60,3 @@ class Stack {
     public:
 
 };
-
-#endif // __BOARD_H__
