@@ -40,16 +40,6 @@ class Out_Of_Width_Range : public Invalid_Width {
 };
 
 /**
- * @brief An exception thrown when the bounds are invalid
- *
- */
-class Invalid_Bounds : public std::invalid_argument {
-    public:
-        Invalid_Bounds(const std::string &what_arg)
-            : std::invalid_argument(what_arg) {}
-};
-
-/**
  * @brief An exception thrown when the percentage is invalid
  *
  */
