@@ -24,11 +24,11 @@ const char UNDEFINED_CHAR{'\0'};    // Undefined character
 
 /* Define the characters used to represent the board
 */
-const char MINE{'*'};               // Mine
-const char FLAG{'F'};               // Flag
-const char QUESTION{'?'};           // Question mark
 const char EMPTY{' '};              // Empty cell
+const char FLAG{'F'};               // Flag
 const char HIDDEN{'#'};             // Hidden cell
+const char MINE{'*'};               // Mine
+const char QUESTION{'?'};           // Question mark
 
 /* Define the keys used to handle the menu items
 */

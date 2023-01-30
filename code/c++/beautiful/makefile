@@ -10,11 +10,11 @@ INC_DIR = include
 SRC_DIR = src
 OBJ_DIR = obj
 # All the files in the include directory
-HEADERS = $(wildcard $(INC_DIR)/*.h)
+HEADERS = $(wildcard $(INC_DIR)/*.hpp)
 # All the files in the src directory
-SOURCES = $(wildcard $(SRC_DIR)/*.cc)
+SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
 # All the object files
-OBJECTS = $(patsubst $(SRC_DIR)/%.cc, $(OBJ_DIR)/%.o, $(SOURCES))
+OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
 # The name of the executable
 EXECUTABLE = minesweeper
 # The destination of the executable
@@ -50,7 +50,7 @@ $(TARGET):		$(OBJECTS)
 				$(CXX) $(CXXFLAGS) $(INCLUDE_FLAGS) -o $@ $(OBJECTS)
 
 # The object files depend on the source files and the header files
-$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.cc $(HEADERS)
+$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.cpp $(HEADERS)
 				$(CXX) $(CXXFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 
 # clean is a target that removes all the object files and the executable
