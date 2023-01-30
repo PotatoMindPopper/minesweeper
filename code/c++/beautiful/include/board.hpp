@@ -18,11 +18,11 @@ class Board {
 
     public:
 
-        Board();                        // Constructor
-        Board(int height, int width);   // Constructor
-        ~Board();                       // Destructor
+        Board();    // Constructor
+        ~Board();   // Destructor
 
-        void print(); // Print the board
+        void print();                       // Print the board
+        void init(int height, int width);   // Initialize the board
 
 };
 

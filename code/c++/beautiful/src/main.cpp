@@ -2,7 +2,8 @@
 #include <iostream>
 
 int main() {
-    Board board;
-    board.print();
+    BoardUPtr board = std::make_unique<Board>();
+    // board->init(4, 5);
+    board->print();
     return 0;
 }
