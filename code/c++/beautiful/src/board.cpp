@@ -1,4 +1,5 @@
 #include "board.hpp"
+#include "exceptions.hpp"
 #include <iostream>
 
 /**
@@ -41,9 +42,31 @@ void Board::print() {
  */
 void Board::init(int height, int width) {
     if (height < MIN_HEIGHT || height > MAX_HEIGHT)
-        return;
+        throw Invalid_Height("Invalid height");
     if (width < MIN_WIDTH || width > MAX_WIDTH)
-        return;
+        throw Invalid_Width("Invalid width");
     this->height = height;
+    this->width = width;
+}
+
+/**
+ * @brief Set the height of the board
+ * 
+ * @param height The chosen height of the board
+ */
+void Board::setHeight(int height) {
+    if (height < MIN_HEIGHT || height > MAX_HEIGHT)
+        throw Invalid_Height("Invalid height");
+    this->height = height;
+}
+
+/**
+ * @brief Set the width of the board
+ * 
+ * @param width The chosen width of the board
+ */
+void Board::setWidth(int width) {
+    if (width < MIN_WIDTH || width > MAX_WIDTH)
+        throw Invalid_Width("Invalid width");
     this->width = width;
 }

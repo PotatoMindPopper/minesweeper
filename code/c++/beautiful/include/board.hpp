@@ -24,6 +24,9 @@ class Board {
         void print();                       // Print the board
         void init(int height, int width);   // Initialize the board
 
+        void setHeight(int height); // Set the height of the board
+        void setWidth(int width);   // Set the width of the board
+
 };
 
 #endif // __BOARD_HPP__
