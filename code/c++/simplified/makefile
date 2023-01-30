@@ -50,7 +50,7 @@ $(TARGET):		$(OBJECTS)
 				$(CXX) $(CXXFLAGS) $(INCLUDE_FLAGS) -o $@ $(OBJECTS)
 
 # The object files depend on the source files and the header files
-$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.cc $(HEADERS)
+$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.cpp $(HEADERS)
 				$(CXX) $(CXXFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 
 # clean is a target that removes all the object files and the executable
