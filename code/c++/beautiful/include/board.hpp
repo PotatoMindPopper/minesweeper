@@ -13,19 +13,21 @@ typedef std::unique_ptr<class Board> BoardUPtr;    // Currect board
  */
 class Board {
 
-    int height{DEFAULT_HEIGHT}; // Height of the board
-    int width{DEFAULT_WIDTH};   // Width of the board
+    int height{DEFAULT_HEIGHT};         // Height of the board
+    int width{DEFAULT_WIDTH};           // Width of the board
+    float percentage{DEFAULT_PERCENTAGE}; // Percentage of mines
 
     public:
 
         Board();    // Constructor
         ~Board();   // Destructor
 
-        void print();                       // Print the board
-        void init(int height, int width);   // Initialize the board
+        void print();
+        void init(int height, int width, float percentage);
 
-        void setHeight(int height); // Set the height of the board
-        void setWidth(int width);   // Set the width of the board
+        void setHeight(int height);
+        void setWidth(int width);
+        void setPercentage(float percentage);
 
 };
 

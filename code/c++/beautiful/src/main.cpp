@@ -5,19 +5,13 @@
 int main() {
     BoardUPtr board = std::make_unique<Board>();
     try {
-        board->init(40, 10);
-    } catch (Invalid_Height& e) {
+        board->init(50, 40, 0.1);
+    } catch (const Out_Of_Height_Range& e) {
         std::cout << e.what() << std::endl;
-        std::cout << "Height must be between " << MIN_HEIGHT << " and " 
-                  << MAX_HEIGHT << std::endl;
-        std::cout << "Setting height to " << DEFAULT_HEIGHT << std::endl;
-        board->setHeight(DEFAULT_HEIGHT);
-    } catch (Invalid_Width& e) {
+    } catch (const Out_Of_Width_Range& e) {
         std::cout << e.what() << std::endl;
-        std::cout << "Width must be between " << MIN_WIDTH << " and " 
-                  << MAX_WIDTH << std::endl;
-        std::cout << "Setting width to " << DEFAULT_WIDTH << std::endl;
-        board->setWidth(DEFAULT_WIDTH);
+    } catch (const Out_Of_Percentage_Range& e) {
+        std::cout << e.what() << std::endl;
     }
     board->print();
     return 0;

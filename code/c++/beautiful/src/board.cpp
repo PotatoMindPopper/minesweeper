@@ -32,6 +32,7 @@ void Board::print() {
     
     std::cout << "Height: " << this->height << std::endl;
     std::cout << "Width: " << this->width << std::endl;
+    std::cout << "Percentage: " << this->percentage << std::endl;
 }
 
 /**
@@ -40,13 +41,11 @@ void Board::print() {
  * @param height The chosen height of the board
  * @param width  The chosen width of the board
  */
-void Board::init(int height, int width) {
-    if (height < MIN_HEIGHT || height > MAX_HEIGHT)
-        throw Invalid_Height("Invalid height");
-    if (width < MIN_WIDTH || width > MAX_WIDTH)
-        throw Invalid_Width("Invalid width");
-    this->height = height;
-    this->width = width;
+void Board::init(int height = DEFAULT_HEIGHT, int width = DEFAULT_WIDTH, 
+                 float percentage = DEFAULT_PERCENTAGE) {
+    this->setHeight(height);
+    this->setWidth(width);
+    this->setPercentage(percentage);
 }
 
 /**
@@ -56,7 +55,7 @@ void Board::init(int height, int width) {
  */
 void Board::setHeight(int height) {
     if (height < MIN_HEIGHT || height > MAX_HEIGHT)
-        throw Invalid_Height("Invalid height");
+        throw Out_Of_Height_Range(MIN_HEIGHT, MAX_HEIGHT);
     this->height = height;
 }
 
@@ -67,6 +66,17 @@ void Board::setHeight(int height) {
  */
 void Board::setWidth(int width) {
     if (width < MIN_WIDTH || width > MAX_WIDTH)
-        throw Invalid_Width("Invalid width");
+        throw Out_Of_Width_Range(MIN_WIDTH, MAX_WIDTH);
     this->width = width;
+}
+
+/**
+ * @brief Set the percentage of mines
+ * 
+ * @param percentage The chosen percentage of mines
+ */
+void Board::setPercentage(float percentage) {
+    if (percentage < MIN_PERCENTAGE || percentage > MAX_PERCENTAGE)
+        throw Out_Of_Percentage_Range(MIN_PERCENTAGE, MAX_PERCENTAGE);
+    this->percentage = percentage;
 }

@@ -3,19 +3,19 @@
 
 /* Define the boundaries of the board and the game state
 */
-const int MAX_WIDTH{30};            // Maximum width of the board
-const int MAX_HEIGHT{30};           // Maximum height of the board
+const int MIN_TIME{0};              // Minimum time
 const int MIN_WIDTH{4};             // Minimum width of the board
 const int MIN_HEIGHT{4};            // Minimum height of the board
-const int MAX_PERCENTAGE{99};       // Maximum percentage of the mines
-const int MIN_PERCENTAGE{1};        // Minimum percentage of the mines
-const int MIN_TIME{0};              // Minimum time
+const int MAX_WIDTH{30};            // Maximum width of the board
+const int MAX_HEIGHT{30};           // Maximum height of the board
+const float MIN_PERCENTAGE{1};      // Minimum percentage of the mines
+const float MAX_PERCENTAGE{99};     // Maximum percentage of the mines
 
 /* Define the default values of the board
 */
 const int DEFAULT_WIDTH{10};        // Default width of the board
 const int DEFAULT_HEIGHT{10};       // Default height of the board
-const int DEFAULT_PERCENTAGE{30};   // Default percentage of the mines
+const float DEFAULT_PERCENTAGE{30}; // Default percentage of the mines
 
 /* Define the default values of un-initialized or unused variables
 */
