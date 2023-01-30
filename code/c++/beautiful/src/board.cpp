@@ -1,5 +1,4 @@
 #include "board.hpp"
-#include "exceptions.hpp"
 #include <iostream>
 
 /**
@@ -32,6 +31,7 @@ void Board::print() {
     
     std::cout << "Height: " << this->height << std::endl;
     std::cout << "Width: " << this->width << std::endl;
+    std::cout << "Percentage: " << this->percentage << std::endl;
 }
 
 /**
@@ -40,13 +40,10 @@ void Board::print() {
  * @param height The chosen height of the board
  * @param width  The chosen width of the board
  */
-void Board::init(int height, int width) {
-    if (height < MIN_HEIGHT || height > MAX_HEIGHT)
-        throw Invalid_Height("Invalid height");
-    if (width < MIN_WIDTH || width > MAX_WIDTH)
-        throw Invalid_Width("Invalid width");
-    this->height = height;
-    this->width = width;
+void Board::init(int height, int width, float percentage) {
+    this->setHeight(height);
+    this->setWidth(width);
+    this->setPercentage(percentage);
 }
 
 /**
@@ -55,8 +52,14 @@ void Board::init(int height, int width) {
  * @param height The chosen height of the board
  */
 void Board::setHeight(int height) {
-    if (height < MIN_HEIGHT || height > MAX_HEIGHT)
-        throw Invalid_Height("Invalid height");
+    if (height < MIN_HEIGHT || height > MAX_HEIGHT) {
+        this->height = DEFAULT_HEIGHT;
+        std::cout << "Invalid height. Height must be between " << MIN_HEIGHT 
+                  << " and " << MAX_HEIGHT << ". Defaulting to " 
+                  << DEFAULT_HEIGHT << std::endl;
+        return;
+    }
+
     this->height = height;
 }
 
@@ -66,7 +69,30 @@ void Board::setHeight(int height) {
  * @param width The chosen width of the board
  */
 void Board::setWidth(int width) {
-    if (width < MIN_WIDTH || width > MAX_WIDTH)
-        throw Invalid_Width("Invalid width");
+    if (width < MIN_WIDTH || width > MAX_WIDTH) {
+        this->width = DEFAULT_WIDTH;
+        std::cout << "Invalid width. Width must be between " << MIN_WIDTH 
+                  << " and " << MAX_WIDTH << ". Defaulting to " 
+                  << DEFAULT_WIDTH << std::endl;
+        return;
+    }
+
     this->width = width;
+}
+
+/**
+ * @brief Set the percentage of mines
+ * 
+ * @param percentage The chosen percentage of mines
+ */
+void Board::setPercentage(float percentage) {
+    if (percentage < MIN_PERCENTAGE || percentage > MAX_PERCENTAGE) {
+        this->percentage = DEFAULT_PERCENTAGE;
+        std::cout << "Invalid percentage. Percentage must be between " 
+                  << MIN_PERCENTAGE << " and " << MAX_PERCENTAGE 
+                  << ". Defaulting to " << DEFAULT_PERCENTAGE << std::endl;
+        return;
+    }
+
+    this->percentage = percentage;
 }

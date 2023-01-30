@@ -3,19 +3,37 @@
 
 /* Define the boundaries of the board and the game state
 */
-const int MAX_WIDTH{30};            // Maximum width of the board
-const int MAX_HEIGHT{30};           // Maximum height of the board
+const int MIN_TIME{0};              // Minimum time
 const int MIN_WIDTH{4};             // Minimum width of the board
 const int MIN_HEIGHT{4};            // Minimum height of the board
-const int MAX_PERCENTAGE{99};       // Maximum percentage of the mines
-const int MIN_PERCENTAGE{1};        // Minimum percentage of the mines
-const int MIN_TIME{0};              // Minimum time
+const int MAX_WIDTH{30};            // Maximum width of the board
+const int MAX_HEIGHT{30};           // Maximum height of the board
+const float MIN_PERCENTAGE{1};      // Minimum percentage of the mines
+const float MAX_PERCENTAGE{99};     // Maximum percentage of the mines
 
 /* Define the default values of the board
 */
 const int DEFAULT_WIDTH{10};        // Default width of the board
 const int DEFAULT_HEIGHT{10};       // Default height of the board
-const int DEFAULT_PERCENTAGE{30};   // Default percentage of the mines
+const float DEFAULT_PERCENTAGE{30}; // Default percentage of the mines
+
+/* Define the default values of a beginner board
+*/
+const int BEGINNER_WIDTH{9};        // Beginner width of the board
+const int BEGINNER_HEIGHT{9};       // Beginner height of the board
+const float BEGINNER_PERCENTAGE{10};// Beginner percentage of the mines
+
+/* Define the default values of an intermediate board
+*/
+const int INTERMEDIATE_WIDTH{16};        // Intermediate width of the board
+const int INTERMEDIATE_HEIGHT{16};       // Intermediate height of the board
+const float INTERMEDIATE_PERCENTAGE{40}; // Intermediate percentage of the mines
+
+/* Define the default values of an expert board
+*/
+const int EXPERT_WIDTH{30};         // Expert width of the board
+const int EXPERT_HEIGHT{16};        // Expert height of the board
+const float EXPERT_PERCENTAGE{80};  // Expert percentage of the mines
 
 /* Define the default values of un-initialized or unused variables
 */

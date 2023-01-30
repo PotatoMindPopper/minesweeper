@@ -13,6 +13,12 @@ typedef std::chrono::time_point<std::chrono::system_clock> Time; // Time
  */
 class Game {
 
+    BoardUPtr board;    // The board
+    StackUPtr stack;    // The stack
+
+    Time start;         // The start time
+    Time end;           // The end time
+
     public:
 
 };
