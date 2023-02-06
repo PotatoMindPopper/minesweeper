@@ -1,4 +1,5 @@
 #include "board.hpp"
+#include "constants.hpp"
 #include <iostream>
 
 /**
@@ -41,9 +42,22 @@ void Board::print() {
  * @param width  The chosen width of the board
  */
 void Board::init(int height, int width, float percentage) {
-    this->setHeight(height);
-    this->setWidth(width);
-    this->setPercentage(percentage);
+    if (this->setHeight(height) == false) { // TODO: change to boolean or integer return type to indicate success or failure
+        this->initialized = false;
+        return;
+    }
+
+    if (this->setWidth(width) == false) {   // TODO: change to boolean or integer return type to indicate success or failure
+        this->initialized = false;
+        return;
+    }
+
+    if (this->setPercentage(percentage) == false) { // TODO: change to boolean or integer return type to indicate success or failure
+        this->initialized = false;
+        return;
+    }
+
+    this->initialized = true;
 }
 
 /**
@@ -95,4 +109,14 @@ void Board::setPercentage(float percentage) {
     }
 
     this->percentage = percentage;
+}
+
+/**
+ * @brief Check if the board is initialized
+ * 
+ * @return true If the board is initialized
+ * @return false If the board is not initialized
+ */
+bool Board::isInitialized() {
+    return this->initialized;
 }

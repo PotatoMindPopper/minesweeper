@@ -3,6 +3,7 @@
 
 #include "constants.hpp"
 #include <memory>
+#include <string>
 
 typedef std::shared_ptr<struct Cell> CellSPtr;     // Cell in the board
 
@@ -36,6 +37,16 @@ struct Cell {
     CellSPtr next{nullptr};         // Next cell in the board
     // Grid format:
     CellSPtr neighbors[8]{nullptr}; // Neighbors of the cell
-};
+
+    // Methods
+    std::string to_string();            // Convert the cell values to a string
+    std::string to_string(Type type);   // Convert the type to a string
+    std::string to_string(State state); // Convert the state to a string
+    void change_type(int value);        // Change the type of the cell
+    void change_state(int value);       // Change the state of the cell
+    void flag();                        // Flag the cell
+    void reveal();                      // Reveal the cell
+    void question();                    // Question the cell
+}; // struct Cell
 
 #endif // __CELL_HPP__

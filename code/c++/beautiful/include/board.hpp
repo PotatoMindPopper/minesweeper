@@ -12,23 +12,26 @@ typedef std::unique_ptr<class Board> BoardUPtr;    // Currect board
  * @brief A class representing the board.
  */
 class Board {
-
-    int height{DEFAULT_HEIGHT};         // Height of the board
-    int width{DEFAULT_WIDTH};           // Width of the board
-    float percentage{DEFAULT_PERCENTAGE}; // Percentage of mines
+    // Properties
+    bool initialized{false};                // Initialization flag
+    int height{DEFAULT_HEIGHT};             // Height of the board
+    int width{DEFAULT_WIDTH};               // Width of the board
+    float percentage{DEFAULT_PERCENTAGE};   // Percentage of mines
 
     public:
 
         Board();    // Constructor
         ~Board();   // Destructor
 
+        // Methods
         void print();
-        void init(int height, int width, float percentage);
+        void init(int height, int width, float percentage); // TODO: Change to boolean or integer return type to indicate success or failure
 
         void setHeight(int height);
         void setWidth(int width);
         void setPercentage(float percentage);
 
-};
+        bool isInitialized();
+}; // class Board
 
 #endif // __BOARD_HPP__
